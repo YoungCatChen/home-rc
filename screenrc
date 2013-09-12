@@ -1,0 +1,27 @@
+startup_message off
+defflow on # will force screen to process ^S/^Q
+autodetach on
+vbell off
+defscrollback 5000
+hardstatus off
+hardstatus string "%h"
+
+
+################
+#
+# default windows
+#
+
+# screen -t local 0
+# screen -t mail 1 mutt
+# screen -t 40 2 rlogin server
+
+# caption always "%3n %t%? @%u%?%? [%h]%?%=%c"
+## alternative caption, gives window list, LOGNAME and current date:
+# caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw %=%{mk}@%H %{yk}%D %{ck}%M%{wk} %{ck}%d %{gk}%c"
+# hardstatus alwaysignore
+# hardstatus alwayslastline "%Lw"
+
+# Red Hat's normal status line
+#hardstatus string "[screen %n%?: %t%?] %h"
+

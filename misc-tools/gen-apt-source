@@ -1,0 +1,9 @@
+#!/bin/bash
+CODENAME=`lsb_release -c -s`
+
+for str in '' '-proposed' '-security' '-updates' '#-backports'; do
+	LINE="http://$1/ubuntu/ $CODENAME${str###} main restricted universe multiverse"
+	[ "x${str:0:1}" = "x#" ] && C='#' || C=
+	echo "${C}deb     $LINE"
+	echo "${C}deb-src $LINE"
+done

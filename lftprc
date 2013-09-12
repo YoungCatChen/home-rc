@@ -1,0 +1,13 @@
+set prompt			"\[\e[0;32m\]\u\@\h \w\[\e[1;37m\]> \[\e[m\]"
+
+set mirror:dereference		yes
+set mirror:exclude-regex	"(^|/)(\\.in\\.|\\.nfs|NoMirror|[Dd][Ee][Ss][Kk][Tt][Oo][Pp]\\.[Ii][Nn][Ii]|[Tt][Hh][Uu][Mm][Bb][Ss]\\.[Dd][Bb])"
+set mirror:set-permissions	no
+
+set net:idle			20m
+set net:limit-rate		9500000
+set net:limit-max		9500000
+set net:limit-total-rate	9500000
+set net:limit-total-max		9500000
+
+set xfer:buffer-size		50000000

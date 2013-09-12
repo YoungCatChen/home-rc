@@ -1,0 +1,37 @@
+#!/bin/bash
+
+COL="$1"
+shift
+
+SKIP="$(($1 + 0))"
+if [ -n "$1" ]; then  # $1 non-empty
+	if [ -z "${1//[0-9]/}" ]; then # $1 all digits
+		shift
+	fi
+fi
+
+
+awk -v "col=$COL" -v "skip=$SKIP" '
+BEGIN {
+	col = col + 0;
+	skip = skip + 0;
+	line = -skip;
+	arr[line] = "";
+}
+
+{
+	arr[line] = $0;
+	line++;
+}
+
+END {
+	jump = int((line + col - 1) / col);
+
+	for (i=0; i<jump; ++i) {
+		for (j=0; j<col; ++j) {
+			printf("%s\t", arr[i + j*jump]);
+		}
+		printf("\n");
+	}
+}
+' "$@"

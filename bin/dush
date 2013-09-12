@@ -1,0 +1,1 @@
+../profile.d/99-aliasfuncs.sh

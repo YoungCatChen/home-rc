@@ -1,0 +1,22 @@
+#!/bin/bash
+
+SPLIT="$1"
+shift
+
+awk -v "sp=$SPLIT" '
+BEGIN {
+	line = 0;
+	sp = sp + 0;
+}
+
+{
+	printf("%s\t", $0);
+	++line;
+
+	if (line == sp)
+	{
+		printf("\n");
+		line = 0;
+	}
+}
+' "$@"

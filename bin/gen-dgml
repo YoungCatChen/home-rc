@@ -1,0 +1,52 @@
+#!/usr/bin/awk -f
+
+## This file is GBK encoded.
+## 运行方式： ./gen-dgml <file1> <file2> <...>
+## 本脚本只能针对特定代码风格的 C 代码进行解析，
+## 要求在函数实现中，函数名和函数结束的右大括号顶格写。例如：
+##
+## int
+## main(int argc, char *argv[])
+## {
+##     printf("hello\n");
+##     return 0;
+## }
+
+BEGIN {
+	print "<?xml version='1.0' encoding='utf-8'?>";
+	print "<DirectedGraph xmlns='http://schemas.microsoft.com/vs/2009/dgml'><Links>";
+	currentFunc = "__None__";
+}
+
+$0 !~ /^[ \t]*[\*#]/ {
+	#print $0;
+
+	if ($0 ~ /^}/)
+		currentFunc = "__None__";
+
+	line = $0;
+	flag = 1;
+
+	while (flag) {
+		#print line;
+		pos = match(line, /(\w+)\(/, array);
+
+		if (pos == 0) {
+			flag = 0;
+		} else if (pos == 1) {
+			currentFunc = array[1];
+			flag = 0;
+		} else {
+			target = array[1];
+			lower = tolower(target);
+			upper = toupper(target);
+			if (upper != target && currentFunc != "__None__")
+				print "<Link Source='" currentFunc "' Target='" target "' />"
+			line = substr(line, RSTART+RLENGTH-1);
+		}
+	}
+}
+
+END {
+	print "</Links></DirectedGraph>";
+}

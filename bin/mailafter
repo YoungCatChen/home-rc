@@ -1,0 +1,165 @@
+#!/bin/bash
+
+# Configuration
+set -o errexit
+TOADDRFILE="$HOME/.mailafter_toaddr"
+SENDEXEC="$HOME/.mailafter_send"
+STDOUT="/tmp/mailafter-$$.out"
+STDERR="/tmp/mailafter-$$.err"
+CURDIR="`pwd`"
+
+
+# Getting the cmdline
+if [ -z "$*" ]; then
+	echo "$0: no command to run." >&2
+	exit 2
+fi
+CMDLINE="$*"
+DATE=`date "+%Y-%m-%d %H:%M:%S"`
+
+# Setting subject of mail
+if [ -z "${CMDLINE##echo *}" ]; then
+	SUBJECT="${CMDLINE#echo } ($DATE)"
+else
+	SUBJECT="Job $DATE: $CMDLINE"
+fi
+
+# Get TOADDR if any
+if [ -f "$TOADDRFILE" -a -r "$TOADDRFILE" ]; then
+	read TOADDR < "$TOADDRFILE"
+fi
+
+# Determine how to send mail
+eval `locale`
+PRETAG='<pre style="font-family: Consolas, Courier New, Courier, monospace">'
+
+ahawrap() {
+	if command -v aha > /dev/null; then
+		aha -l -t "$SUBJECT"
+	else
+		echo "<html><body>$PRETAG"
+		sed -e 's/&/\&amp;/g' -e 's/"/\&quot;/g' -e "s/'/\&#039;/g" \
+			-e 's/</\&lt;/g' -e 's/>/\&gt;/g'
+		echo '</pre></body></html>'
+	fi
+}
+htmlmail() {
+	ahawrap | sed "s/<pre>/$PRETAG/" | mail -a 'Mime-Version: 1.0' \
+		-a "Content-Type: text/html; charset=${LC_CTYPE#*.}" \
+		-s "$SUBJECT" "$TOADDR"
+}
+
+DEFSENDCMD="mail -s '$SUBJECT' '$TOADDR'"
+DEFSENDCMD='htmlmail'
+
+if [ -n "$SENDCMD" ]; then
+	true
+elif [ -f "$SENDEXEC" ]; then
+	SENDCMD='. "$SENDEXEC"'
+else
+	if [ -z "$TOADDR" ]; then
+		echo "$0: $TOADDRFILE does not exist or is empty." >&2
+		exit 2
+	fi
+	if command -v mail > /dev/null; then
+		true
+	else
+		echo "$0: mail(1) not found. Please install GNU mailutils." >&2
+		exit 2
+	fi
+	SENDCMD="$DEFSENDCMD"
+fi
+
+
+# Run
+cleanup() {
+	rm -f "$STDOUT" "$STDERR"
+}
+set +o errexit
+trap 'cleanup' EXIT
+trap 'exit 130' SIGINT
+
+eval "$@" 2> >(tee "$STDERR" >&2) | tee "$STDOUT"
+
+RETURN="${PIPESTATUS[0]}"
+DATE2=`date "+%Y-%m-%d %H:%M:%S"`
+trap - SIGINT
+
+# Waiting for sending mail
+{
+	echo
+	echo -n 'Sending mail '
+	if [ "$SENDCMD" = "$DEFSENDCMD" ]; then
+		echo -n "to $TOADDR... "
+	else
+		echo 'by:'
+		cat "$SENDCMD"
+	fi
+	echo 'Press CTRL+C to abort.'
+} >&2
+
+trap 'echo "Sending mail cancelled." >&2; exit $RETURN' SIGINT
+sleep 1.5
+trap - SIGINT
+
+# Send the mail
+removebackspace()
+{
+	awk '{ for(i=0; i<20; ++i) gsub(/[^\x8]\x8/, ""); print; }' "$@"
+}
+
+mailbody()
+{
+	echo "@@@  Job command:  $CMDLINE"
+	echo "@@@  Working dir:  $CURDIR"
+	echo "@@@  Started at:   $DATE"
+	echo "@@@  Ended at:     $DATE2"
+	echo "@@@  Return value: $RETURN"
+	echo
+
+	echo "@@@@@@@@@@@@@@@@@@"
+	echo "@@@@@ stdout @@@@@"
+	echo "@@@@@@@@@@@@@@@@@@"
+	echo
+	removebackspace "$STDOUT"
+	echo
+
+	echo "@@@@@@@@@@@@@@@@@@"
+	echo "@@@@@ stderr @@@@@"
+	echo "@@@@@@@@@@@@@@@@@@"
+	echo
+	removebackspace "$STDERR"
+	echo
+
+	for ARG in "$@"; do
+		echo "@@@@@@@${ARG//?/@}@@@@@@"
+		echo "@@@@@ $ARG @@@@@@"
+		echo "@@@@@@@${ARG//?/@}@@@@@@"
+		echo
+
+		if [ -r "$ARG" -a -f "$ARG" ]; then
+			TYPE="`file -L --mime-type "$ARG"`"
+
+			if [ "${TYPE// text\//}" != "$TYPE" ]; then
+				head -c 102400 "$ARG"
+			else
+				echo "[Not a text file]"
+			fi
+		else
+			echo "[Not a file or no permisson]"
+		fi
+
+		echo
+	done
+}
+
+set -o errexit
+mailbody "$@" | eval "$SENDCMD"
+
+if [ $? -eq 0 ]; then
+	echo "Mail sent." >&2
+else
+	echo "Sending mail failed." >&2
+fi
+
+exit $RETURN
