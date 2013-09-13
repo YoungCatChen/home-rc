@@ -9,6 +9,14 @@ lftprc            .lftprc
 profile.sh        .profile
 screenrc          .screenrc
 toprc             .toprc
+
+maximum-awesome/tmux.conf .tmux.conf
+maximum-awesome/vim       .vim
+maximum-awesome/vimrc     .vimrc
+'
+
+touches='
+.vimrc.local
 '
 
 
@@ -32,17 +40,23 @@ echo $rel
 # Make symlinks.
 
 echo "$links" | while read from to; do
-  [ ! -f "$from" ] || execcmd ln -sf "$rel/$from" "$HOME/$to"
+  [ -z "$from" ] || execcmd ln -sfn "$rel/$from" "$HOME/$to"
 done
 
 
-# Generate .home-dir-config.settings in $HOME.
+# Make empty files.
+
+echo "$touches" | while read tarch; do
+  [ -z "$tarch" -o -e "$HOME/$tarch" ] || execcmd touch "$HOME/$tarch"
+done
+
+# Generate .home-rc.settings in $HOME.
 
 {
   grep '=' defaults.sh
   echo "export CODEROOT='$PWD'"
   echo "export CODEROOTREL='$rel'"
-} | execcmd tee "$HOME/.home-dir-config.settings"
+} | execcmd tee "$HOME/.home-rc.settings"
 
 
 # And we are done.

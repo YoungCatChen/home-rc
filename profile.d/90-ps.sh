@@ -1,6 +1,6 @@
 #!/bin/sh
 [ -n "$CODEROOT" ] || {
-	. "$HOME/.home-dir-config.settings"
+	. "$HOME/.home-rc.settings"
 	. "$CODEROOT/bin/mylogname"
 	. "$CODEROOT/bin/nullit"
 	. "$CODEROOT/_echo2cache"

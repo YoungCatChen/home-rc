@@ -1,5 +1,5 @@
 #!/bin/sh
-[ -n "$CODEROOT" ] || . "$HOME/.home-dir-config.settings"
+[ -n "$CODEROOT" ] || . "$HOME/.home-rc.settings"
 [ -n "$MYLOGNAME" ] || . "$CODEROOT/bin/mylogname"
 
 ### direct2cache head START ###

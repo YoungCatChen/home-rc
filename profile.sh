@@ -38,7 +38,7 @@ update_rc()
   [ -w /tmp ] || u_r_TMP="$CACHE_OUT.$$.tmp"
 
   # CODEROOT
-  . "$HOME/.home-dir-config.settings"
+  . "$HOME/.home-rc.settings"
   echo "export CODEROOT='$CODEROOT'"       >  "$u_r_TMP"
   echo "export CODEROOTREL='$CODEROOTREL'" >> "$u_r_TMP"
 

@@ -1,4 +1,4 @@
-# This file will be copy to $HOME/.home-dir-config.settings .
+# This file will be copy to $HOME/.home-rc.settings .
 
 bash_completion=
 editor=vim
