@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 links='
 bash_profile.bash .bash_profile
