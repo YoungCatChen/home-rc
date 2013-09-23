@@ -35,6 +35,7 @@ PS1="$PS1"'$WHOAMI@'"$HOSTNAME"' \[\e[0;33m\]$PWD'
 PS1="$PS1"'\[\e[1;37m\]$PS1DOLLAR \[\e[m\]'
 
 unset M
+_echo2cache "export HOSTNAME=$HOSTNAME"
 _echo2cache "PS1='$PS1'"
 _echo2cache attach_ps1
 
