@@ -30,7 +30,7 @@ llhd() { ls -lhd "$@";  }
 dir()  { ls      "$@";  }
 
 alias l.='ls -d .*'
-alias ll.='l. -l'
+alias ll.='ll -d .*'
 #### direct2cache head END ####
 
 
