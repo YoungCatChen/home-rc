@@ -6,6 +6,7 @@ export INCLUDE_FILES='    \
   $HOME/.*env/profile.d/* \
   $CODEROOT/bashrc.d/*    \
   $HOME/.*env/bashrc.d/*  \
+  $HOME/.profile.local    \
   $HOME/.bashrc.local     \
 '
 
