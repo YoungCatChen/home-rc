@@ -9,12 +9,12 @@
 	export LOADED_LS=1
 	nullit command ls --color=auto / && export LSC='--color=auto' || export LSC=
 	nullit command ls --hide=bin   / && export LSH='--hide=*{*}*' || export LSH=
-
-	_echo2cache "
-		export LOADED_LS=1
-		export LSC='$LSC'
-		export LSH='$LSH'"
 }
+
+_echo2cache "
+	export LOADED_LS=1
+	export LSC='$LSC'
+	export LSH='$LSH'"
 
 
 ### direct2cache head START ###

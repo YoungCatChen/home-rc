@@ -10,13 +10,15 @@ profile.sh        .profile
 screenrc          .screenrc
 toprc             .toprc
 
-maximum-awesome/tmux.conf .tmux.conf
-maximum-awesome/vim       .vim
-maximum-awesome/vimrc     .vimrc
+maximum-awesome/tmux.conf     .tmux.conf
+maximum-awesome/vim           .vim
+maximum-awesome/vimrc         .vimrc
+maximum-awesome/vimrc.bundles .vimrc.bundles
 '
 
 touches='
 .vimrc.local
+.vimrc.bundles.local
 '
 
 
@@ -52,12 +54,19 @@ done
 
 # Generate .home-rc.settings in $HOME.
 
-{
-  grep '=' defaults.sh
-  echo "export CODEROOT='$PWD'"
-  echo "export CODEROOTREL='$rel'"
-} | execcmd tee "$HOME/.home-rc.settings"
+if [ ! -f "$HOME/.home-rc.settings" ]; then
+  {
+    grep '=' defaults.sh
+    echo "export CODEROOT='$PWD'"
+    echo "export CODEROOTREL='$rel'"
+  } | execcmd tee "$HOME/.home-rc.settings"
+fi
 
+
+# Install vundles specified in maximum-awesome.
+[ "$DRYRUN" = 1 ] && N=-n || N=
+export DRYRUN=0
+execcmdsh "cd maximum-awesome && rake $N install:vundle"
 
 # And we are done.
 

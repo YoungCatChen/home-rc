@@ -11,13 +11,13 @@
 	nullit command ps     -H && export PSH=-H     || export PSH=
 	nullit command pstree -u && export PSTREEU=-u || export PSTREEU=
 	nullit command pstree -h && export PSTREEH=-h || export PSTREEU=
-
-	_echo2cache "
-		export LOADED_PS=1
-		export PSH='$PSH'
-		export PSTREEU='$PSTREEU'
-		export PSTREEH='$PSTREEH'"
 }
+
+_echo2cache "
+	export LOADED_PS=1
+	export PSH='$PSH'
+	export PSTREEU='$PSTREEU'
+	export PSTREEH='$PSTREEH'"
 
 ### direct2cache head START ###
 ps()        { command ps     $PSH              "$@"; }

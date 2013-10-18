@@ -22,12 +22,12 @@
 	elif havebin gvim.bat; then
 		export GVIMEXE=gvim.bat
 	fi
-
-	_echo2cache "
-		export LOADED_VIM=1
-		export VIMEXE='$VIMEXE'
-		export GVIMEXE='$GVIMEXE'"
 }
+
+_echo2cache "
+	export LOADED_VIM=1
+	export VIMEXE='$VIMEXE'
+	export GVIMEXE='$GVIMEXE'"
 
 ### direct2cache head START ###
 vi()       { command "$VIMEXE"  "$@"; }
