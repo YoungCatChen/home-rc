@@ -28,10 +28,10 @@ M="$multiline_prompt"
 PS1=
 [ "$M" = yes ] && PS1="$PS1"'\n'
 PS1="$PS1"'\[\e[1;3${?/[1-9]*/1}m\]$\[\]?=$? '
-PS1="$PS1"'\[\e[0;32m\]'
+PS1="$PS1"'\[\e[m\e[32m\]'
 [ "$M" = yes ] && true || PS1="$PS1"'['
-PS1="$PS1"'$WHOAMI@'"$HOSTNAME"' \[\e[0;33m\]$PWD'
-[ "$M" = yes ] && PS1="$PS1"'\n' || PS1="$PS1"'\[\e[0;32m\]]'
+PS1="$PS1"'$WHOAMI@'"$HOSTNAME"' \[\e[m\e[33m\]$PWD'
+[ "$M" = yes ] && PS1="$PS1"'\n' || PS1="$PS1"'\[\e[m\e[32m\]]'
 PS1="$PS1"'\[\e[1;37m\]$PS1DOLLAR \[\e[m\]'
 
 unset M

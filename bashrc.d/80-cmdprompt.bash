@@ -32,9 +32,9 @@ M="$multiline_prompt"
 [ "$M" = '' -a "$TERM" = cygwin ] && M=yes
 
 if [ "$M" = yes ]; then
-  PS1='\n\[\e[1;31m\]$EXITSTATUS\[\e[0;32m\]\u@\h \[\e[0;33m\]\w\n\[\e[1;37m\]\$ \[\e[m\]'
+  PS1='\n\[\e[1;31m\]$EXITSTATUS\[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w\n\[\e[1;37m\]\$ \[\e[m\]'
 else
-  PS1='\[\e[1;31m\]$EXITSTATUS\[\e[0;32m\][\u@\h \[\e[0;33m\]\w\[\e[0;32m\]]\[\e[1;37m\]\$ \[\e[m\]'
+  PS1='\[\e[1;31m\]$EXITSTATUS\[\e[m\e[32m\][\u@\h \[\e[m\e[33m\]\w\[\e[m\e[32m\]]\[\e[1;37m\]\$ \[\e[m\]'
 fi
 
 unset M
