@@ -17,6 +17,7 @@ maximum-awesome/vimrc.bundles .vimrc.bundles
 '
 
 touches='
+.viminfo
 .vimrc.local
 .vimrc.bundles.local
 '
@@ -51,6 +52,14 @@ done
 echo "$touches" | while read tarch; do
   [ -z "$tarch" -o -e "$HOME/$tarch" ] || execcmd touch "$HOME/$tarch"
 done
+
+if [ ! -f "$HOME/.profile.local" ]; then
+  {
+    echo '### direct2cache head START ###'
+    echo
+    echo '#### direct2cache head END ####'
+  } | execcmd tee "$HOME/.profile.local"
+fi
 
 # Generate .home-rc.settings in $HOME.
 

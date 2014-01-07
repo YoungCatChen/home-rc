@@ -1,11 +1,15 @@
 # Enable programmable completion features
 
-[ "$bash_completion" != no ] || return
-[ -f /etc/bash_completion ] || return
+[ "$bash_completion" == no ] && return
+[ "$bash_completion" != yes ] && is_cygwin && return
 
-if [ "$bash_completion" = yes ]; then
-  _echo2cache '. /etc/bash_completion'
-elif [ "$TERM" != cygwin ]; then
-  _echo2cache '. /etc/bash_completion'
-fi
+get_bash_comp() {
+  [ -f "$1" ] && _echo2cache ". '$1'"
+}
 
+get_bash_comp /etc/bash_completion ||
+get_bash_comp /usr/local/etc/bash_completion ||
+get_bash_comp "$HOME/usr/etc/bash_completion" ||
+true
+
+unset -f get_bash_comp

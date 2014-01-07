@@ -23,7 +23,7 @@ attach_ps1() {
 
 havebin hostname && export HOSTNAME="`hostname`"
 M="$multiline_prompt"
-[ "$M" = '' -a "$TERM" = cygwin ] && M=yes
+[ "$M" = '' ] && is_cygwin && M=yes
 
 PS1=
 [ "$M" = yes ] && PS1="$PS1"'\n'
