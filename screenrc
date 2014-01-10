@@ -2,7 +2,8 @@ startup_message off
 defflow on # will force screen to process ^S/^Q
 autodetach on
 vbell off
-defscrollback 5000
+defscrollback 10000
+fit
 hardstatus off
 hardstatus string "%h"
 
