@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### direct2cache head START ###
 
 startswith() {
@@ -13,3 +15,5 @@ contains() {
 }
 
 #### direct2cache head END ####
+
+. ~/.execfunc.sh
