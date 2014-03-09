@@ -54,6 +54,7 @@ update_rc()
 
   # Source all
   for u_r_F in $u_r_FILES; do
+    echo "## Sourcing ## $u_r_F"  >&9
     . "$u_r_F"
   done  9>>"$u_r_TMP"
 
