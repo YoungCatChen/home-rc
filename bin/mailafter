@@ -110,32 +110,35 @@ removebackspace()
 
 mailbody()
 {
-	echo "@@@  Job command:  $CMDLINE"
-	echo "@@@  Working dir:  $CURDIR"
-	echo "@@@  Started at:   $DATE"
-	echo "@@@  Ended at:     $DATE2"
-	echo "@@@  Return value: $RETURN"
-	echo
+	echo -en '\033[1;34m'
+        echo "Job command:  $CMDLINE"
+	echo "Working dir:  $CURDIR"
+	echo "Started at:   $DATE"
+	echo "Ended at:     $DATE2"
 
+        [ "$RETURN" = 0 ] && echo -en '\033[1;32m' || echo -en '\033[1;31m'
+	echo "Return value: $RETURN"
+
+	echo -e '\033[1;35m'
 	echo "@@@@@@@@@@@@@@@@@@"
 	echo "@@@@@ stdout @@@@@"
 	echo "@@@@@@@@@@@@@@@@@@"
-	echo
+	echo -e '\033[m'
 	removebackspace "$STDOUT"
-	echo
 
+	echo -e '\033[1;35m'
 	echo "@@@@@@@@@@@@@@@@@@"
 	echo "@@@@@ stderr @@@@@"
 	echo "@@@@@@@@@@@@@@@@@@"
-	echo
+	echo -e '\033[m'
 	removebackspace "$STDERR"
-	echo
 
 	for ARG in "$@"; do
+		echo -e '\033[1;35m'
 		echo "@@@@@@@${ARG//?/@}@@@@@@"
 		echo "@@@@@ $ARG @@@@@@"
 		echo "@@@@@@@${ARG//?/@}@@@@@@"
-		echo
+		echo -e '\033[m'
 
 		if [ -r "$ARG" -a -f "$ARG" ]; then
 			TYPE="`file -L --mime-type "$ARG"`"
