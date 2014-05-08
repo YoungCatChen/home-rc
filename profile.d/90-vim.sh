@@ -30,9 +30,9 @@ _echo2cache "
 	export GVIMEXE='$GVIMEXE'"
 
 ### direct2cache head START ###
-vi()       { command "$VIMEXE"  "$@"; }
-vim()      { command "$VIMEXE"  "$@"; }
-gvim()     { command "$GVIMEXE" "$@"; }
+vi()       { command "$VIMEXE"  --cmd 'let g:exe="vi"'   "$@"; }
+vim()      { command "$VIMEXE"  --cmd 'let g:exe="vim"'  "$@"; }
+gvim()     { command "$GVIMEXE" --cmd 'let g:exe="gvim"' "$@"; }
 vidiff()   { vimdiff "$@"; }
 viless()   { vimless "$@"; }
 viin()     { vimin   "$@"; }

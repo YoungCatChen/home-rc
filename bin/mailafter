@@ -79,9 +79,9 @@ set +o errexit
 trap 'cleanup' EXIT
 trap 'exit 130' SIGINT
 
-eval "$@" 2> >(tee "$STDERR" >&2) | tee "$STDOUT"
+eval "$@" > >(tee "$STDOUT") 2> >(tee "$STDERR" >&2)
 
-RETURN="${PIPESTATUS[0]}"
+RETURN="$?"
 DATE2=`date "+%Y-%m-%d %H:%M:%S"`
 trap - SIGINT
 
