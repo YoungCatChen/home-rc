@@ -36,11 +36,12 @@ update_rc()
   # Cache output temp
   u_r_TMP="/tmp/$$.tmp"
   [ -w /tmp ] || u_r_TMP="$CACHE_OUT.$$.tmp"
+  exec > "$u_r_TMP" 9>&1
 
   # CODEROOT
   . "$HOME/.home-rc.settings"
-  echo "export CODEROOT='$CODEROOT'"       >  "$u_r_TMP"
-  echo "export CODEROOTREL='$CODEROOTREL'" >> "$u_r_TMP"
+  echo "export CODEROOT='$CODEROOT'"
+  echo "export CODEROOTREL='$CODEROOTREL'"
 
   # Expand INCLUDE_FILES
   u_r_FILES=/dev/null
@@ -49,18 +50,18 @@ update_rc()
   done
 
   # Direct 2 cache
-  extract_direct2cache head $u_r_FILES  >> "$u_r_TMP"
-  echo  >> "$u_r_TMP"
+  extract_direct2cache head $u_r_FILES
+  echo
 
   # Source all
   for u_r_F in $u_r_FILES; do
     echo "## Sourcing ## $u_r_F"  >&9
     . "$u_r_F"
-  done  9>>"$u_r_TMP"
+  done
 
   # Direct 2 cache
-  echo  >> "$u_r_TMP"
-  extract_direct2cache tail $u_r_FILES  >> "$u_r_TMP"
+  echo
+  extract_direct2cache tail $u_r_FILES
 
   # Replace the old
   mv -f "$u_r_TMP" "$CACHE_OUT"
