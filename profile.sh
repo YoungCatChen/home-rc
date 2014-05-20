@@ -64,6 +64,8 @@ update_rc()
   extract_direct2cache tail $u_r_FILES
 
   # Replace the old
+  exec 9>&-
+  exec >&2
   mv -f "$u_r_TMP" "$CACHE_OUT"
 
   unset u_r_F u_r_FILES u_r_TMP
