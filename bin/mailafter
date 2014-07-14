@@ -1,168 +1,166 @@
 #!/bin/bash
 
-# Configuration
+#################### Configuration ####################
 set -o errexit
-TOADDRFILE="$HOME/.mailafter_toaddr"
-SENDEXEC="$HOME/.mailafter_send"
-STDOUT="/tmp/mailafter-$$.out"
-STDERR="/tmp/mailafter-$$.err"
-CURDIR="`pwd`"
+to_addr_file="$HOME/.mailafter_toaddr"
+send_exec="$HOME/.mailafter_send"
+stdout_file="/tmp/mailafter-$$.out"
+stderr_file="/tmp/mailafter-$$.err"
+cur_dir="`pwd`"
 
 
-# Getting the cmdline
+#################### Getting the cmdline ####################
 if [ -z "$*" ]; then
-	echo "$0: no command to run." >&2
-	exit 2
+  echo "$0: no command to run." >&2
+  exit 2
 fi
-CMDLINE="$*"
-DATE=`date "+%Y-%m-%d %H:%M:%S"`
+cmdline="$*"
+date_str=`date "+%Y-%m-%d %H:%M:%S"`
 
-# Setting subject of mail
-if [ -z "${CMDLINE##echo *}" ]; then
-	SUBJECT="${CMDLINE#echo } ($DATE)"
+#################### Setting subject of mail ####################
+if [ -z "${cmdline##echo *}" ]; then
+  subject="${cmdline#echo } ($date_str)"
 else
-	SUBJECT="Job $DATE: $CMDLINE"
+  subject="Job $date_str: $cmdline"
 fi
 
-# Get TOADDR if any
-if [ -f "$TOADDRFILE" -a -r "$TOADDRFILE" ]; then
-	read TOADDR < "$TOADDRFILE"
+#################### Get to_addr if any ####################
+if [ -f "$to_addr_file" -a -r "$to_addr_file" ]; then
+  read to_addr < "$to_addr_file"
 fi
 
-# Determine how to send mail
-eval `locale`
-PRETAG='<pre style="font-family: Consolas, Courier New, Courier, monospace">'
-
-ahawrap() {
-	if command -v aha > /dev/null; then
-		aha -l -t "$SUBJECT"
-	else
-		echo "<html><body>$PRETAG"
-		sed -e 's/&/\&amp;/g' -e 's/"/\&quot;/g' -e "s/'/\&#039;/g" \
-			-e 's/</\&lt;/g' -e 's/>/\&gt;/g'
-		echo '</pre></body></html>'
-	fi
-}
-htmlmail() {
-	ahawrap | sed "s/<pre>/$PRETAG/" | mail -a 'Mime-Version: 1.0' \
-		-a "Content-Type: text/html; charset=${LC_CTYPE#*.}" \
-		-s "$SUBJECT" "$TOADDR"
-}
-
-DEFSENDCMD="mail -s '$SUBJECT' '$TOADDR'"
-DEFSENDCMD='htmlmail'
-
-if [ -n "$SENDCMD" ]; then
-	true
-elif [ -f "$SENDEXEC" ]; then
-	SENDCMD='. "$SENDEXEC"'
-else
-	if [ -z "$TOADDR" ]; then
-		echo "$0: $TOADDRFILE does not exist or is empty." >&2
-		exit 2
-	fi
-	if command -v mail > /dev/null; then
-		true
-	else
-		echo "$0: mail(1) not found. Please install GNU mailutils." >&2
-		exit 2
-	fi
-	SENDCMD="$DEFSENDCMD"
-fi
+#################### Determine how to send mail ####################
+# if [ -n "$SENDCMD" ]; then
+#   true
+# elif [ -f "$send_exec" ]; then
+#   SENDCMD='. "$send_exec"'
+# else
+#   if [ -z "$to_addr" ]; then
+#     echo "$0: $to_addr_file does not exist or is empty." >&2
+#     exit 2
+#   fi
+#   if ! command -v sendmail > /dev/null; then
+#     echo "$0: sendmail(1) not found. Please install it." >&2
+#     exit 2
+#   fi
+#   SENDCMD='htmlmail'
+# fi
 
 
-# Run
-cleanup() {
-	rm -f "$STDOUT" "$STDERR"
+#################### Run ####################
+clean_up() {
+  rm -f "$stdout_file" "$stderr_file"
 }
 set +o errexit
-trap 'cleanup' EXIT
+trap 'clean_up' EXIT
 trap 'exit 130' SIGINT
 
-eval "$@" > >(tee "$STDOUT") 2> >(tee "$STDERR" >&2)
+eval "$@" > >(tee "$stdout_file") 2> >(tee "$stderr_file" >&2)
 
-RETURN="$?"
-DATE2=`date "+%Y-%m-%d %H:%M:%S"`
+return_val="$?"
+date_str2=`date "+%Y-%m-%d %H:%M:%S"`
 trap - SIGINT
 
-# Waiting for sending mail
-{
-	echo
-	echo -n 'Sending mail '
-	if [ "$SENDCMD" = "$DEFSENDCMD" ]; then
-		echo -n "to $TOADDR... "
-	else
-		echo 'by:'
-		cat "$SENDCMD"
-	fi
-	echo 'Press CTRL+C to abort.'
-} >&2
+#################### Waiting for sending mail ####################
+exec >&2
+echo
+echo "Sending mail to $to_addr..."
+echo 'Press CTRL+C to abort.'
 
-trap 'echo "Sending mail cancelled." >&2; exit $RETURN' SIGINT
+trap 'echo "Sending mail cancelled."; exit $return_val' SIGINT
 sleep 1.5
 trap - SIGINT
 
-# Send the mail
-removebackspace()
-{
-	awk '{ for(i=0; i<20; ++i) gsub(/[^\x8]\x8/, ""); print; }' "$@"
+#################### Preparing to send the mail ####################
+pre_tag='<pre style="font-family: Consolas, Courier New, Courier, monospace">'
+
+mail_header() {
+  eval `locale`
+  echo 'Mime-Version: 1.0'
+  echo "Content-Type: text/html; charset=${LC_CTYPE#*.}"
+  echo "Subject: $subject"
+  echo "To: $to_addr"
+  echo
 }
 
-mailbody()
-{
-	echo -en '\033[1;34m'
-        echo "Job command:  $CMDLINE"
-	echo "Working dir:  $CURDIR"
-	echo "Started at:   $DATE"
-	echo "Ended at:     $DATE2"
+mail_body() {
+  echo -en '\033[1;34m'
+  echo "Job command:  $cmdline"
+  echo "Working dir:  $cur_dir"
+  echo "Started at:   $date_str"
+  echo "Ended at:     $date_str2"
 
-        [ "$RETURN" = 0 ] && echo -en '\033[1;32m' || echo -en '\033[1;31m'
-	echo "Return value: $RETURN"
+  [ "$return_val" = 0 ] && echo -en '\033[1;32m' || echo -en '\033[1;31m'
+  echo "Return value: $return_val"
 
-	echo -e '\033[1;35m'
-	echo "@@@@@@@@@@@@@@@@@@"
-	echo "@@@@@ stdout @@@@@"
-	echo "@@@@@@@@@@@@@@@@@@"
-	echo -e '\033[m'
-	removebackspace "$STDOUT"
+  echo -e '\033[1;35m'
+  echo "@@@@@@@@@@@@@@@@@@"
+  echo "@@@@@ stdout @@@@@"
+  echo "@@@@@@@@@@@@@@@@@@"
+  echo -e '\033[m'
+  remove_backspace "$stdout_file"
 
-	echo -e '\033[1;35m'
-	echo "@@@@@@@@@@@@@@@@@@"
-	echo "@@@@@ stderr @@@@@"
-	echo "@@@@@@@@@@@@@@@@@@"
-	echo -e '\033[m'
-	removebackspace "$STDERR"
+  echo -e '\033[1;35m'
+  echo "@@@@@@@@@@@@@@@@@@"
+  echo "@@@@@ stderr @@@@@"
+  echo "@@@@@@@@@@@@@@@@@@"
+  echo -e '\033[m'
+  remove_backspace "$stderr_file"
 
-	for ARG in "$@"; do
-		echo -e '\033[1;35m'
-		echo "@@@@@@@${ARG//?/@}@@@@@@"
-		echo "@@@@@ $ARG @@@@@@"
-		echo "@@@@@@@${ARG//?/@}@@@@@@"
-		echo -e '\033[m'
+  for ARG in "$@"; do
+    echo -e '\033[1;35m'
+    echo "@@@@@@@${ARG//?/@}@@@@@@"
+    echo "@@@@@ $ARG @@@@@@"
+    echo "@@@@@@@${ARG//?/@}@@@@@@"
+    echo -e '\033[m'
 
-		if [ -r "$ARG" -a -f "$ARG" ]; then
-			TYPE="`file -L --mime-type "$ARG"`"
+    if [ -r "$ARG" -a -f "$ARG" ]; then
+      TYPE="`file -L --mime-type "$ARG"`"
 
-			if [ "${TYPE// text\//}" != "$TYPE" ]; then
-				head -c 102400 "$ARG"
-			else
-				echo "[Not a text file]"
-			fi
-		else
-			echo "[Not a file or no permisson]"
-		fi
+      if [ "${TYPE// text\//}" != "$TYPE" ]; then
+        head -c 102400 "$ARG"
+      else
+        echo "[Not a text file]"
+      fi
+    else
+      echo "[Not a file or no permisson]"
+    fi
 
-		echo
-	done
+    echo
+  done
 }
 
+remove_backspace() {
+  awk '{
+    gsub(/\r/, "");
+    for(i=0; i<20; ++i)
+      gsub(/[^\x8]\x8/, "");
+    print;
+  }' "$@"
+}
+
+aha_wrap() {
+  if command -v aha > /dev/null; then
+    aha -l -t "$subject" | sed "s/<pre>/$pre_tag/"
+  else
+    echo "<html><body>$pre_tag"
+    sed -e $'s/&/\&amp;/g; s/"/\&quot;/g; s/</\&lt;/g; s/>/\&gt;/g; s/\x1b\[[^A-Za-z]*[A-Za-z]//g' -e "s/'/\&#039;/g;"
+    echo '</pre></body></html>'
+  fi
+}
+
+#################### Send the mail ####################
 set -o errexit
-mailbody "$@" | eval "$SENDCMD"
+
+{
+  mail_header
+  mail_body "$@" | aha_wrap
+} | sendmail "$to_addr"
 
 if [ $? -eq 0 ]; then
-	echo "Mail sent." >&2
+  echo "Mail sent." >&2
 else
-	echo "Sending mail failed." >&2
+  echo "Sending mail failed." >&2
 fi
 
-exit $RETURN
+exit $return_val
