@@ -22,6 +22,11 @@ touches='
 .vimrc.bundles.local
 '
 
+locals='
+.profile.local
+.bashrc.local
+'
+
 
 # Change current working dir.
 
@@ -53,13 +58,15 @@ echo "$touches" | while read tarch; do
   [ -z "$tarch" -o -e "$HOME/$tarch" ] || execcmd touch "$HOME/$tarch"
 done
 
-if [ ! -f "$HOME/.profile.local" ]; then
-  {
+echo "$locals" | while read locl; do
+  [ -z "$locl" -o -e "$HOME/$locl" ] || {
     echo '### direct2cache head START ###'
-    echo
     echo '#### direct2cache head END ####'
-  } | execcmd tee "$HOME/.profile.local"
-fi
+    echo '### direct2cache tail START ###'
+    echo '#### direct2cache tail END ####'
+  } | execcmd tee "$HOME/$locl"
+done
+
 
 # Generate .home-rc.settings in $HOME.
 
