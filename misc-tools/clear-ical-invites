@@ -1,0 +1,6 @@
+#!/bin/sh
+
+execcmd sqlite3 "$HOME/Library/Calendars/Calendar Cache" '
+    select "Will clear " || count(*) || " invites." from ZMESSAGE;
+    select * from ZMESSAGE;
+    delete from ZMESSAGE;'
