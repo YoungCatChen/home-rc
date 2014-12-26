@@ -2,10 +2,10 @@
 [ -z "$PS1" ] && return
 
 # Some variables
-[ -z "$LOGIN_SHELL" ] && export LOGIN_SHELL=yes
-[ -z "$INCLUDE_NAME" ] && export INCLUDE_NAME=profile
-export INCLUDE_NAME="$INCLUDE_NAME.`/bin/hostname`"
-export CACHE_OUT="$HOME/.cache/$INCLUDE_NAME"
+[ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=yes
+[ -z "$INCLUDE_NAME" ] && INCLUDE_NAME=profile
+INCLUDE_NAME="$INCLUDE_NAME.`/bin/hostname`"
+CACHE_OUT="$HOME/.cache/$INCLUDE_NAME"
 
 [ -z "$INCLUDE_FILES" ] && export INCLUDE_FILES=' \
   $CODEROOT/profile.d/*   \
@@ -36,7 +36,7 @@ update_rc()
   # Cache output temp
   u_r_TMP="/tmp/$$.tmp"
   [ -w /tmp ] || u_r_TMP="$CACHE_OUT.$$.tmp"
-  exec > "$u_r_TMP" 9>&1
+  exec 8>&1 >"$u_r_TMP" 9>&1
 
   # CODEROOT
   . "$HOME/.home-rc.settings"
