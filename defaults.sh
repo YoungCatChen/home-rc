@@ -1,6 +1,7 @@
 # This file will be copy to $HOME/.home-rc.settings .
 
 bash_completion=
+cd_and_d=
 editor=vim
 force_bash=no
 lang=
