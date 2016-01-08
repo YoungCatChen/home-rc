@@ -1,8 +1,8 @@
-home-rc
+Home-RC
 =======
 **Quick and organised -- take both.**
 
-Home-rc project offers an great way to maintain the **dot files** you need everyday.
+The Home-RC project offers an great way to maintain the **dot files** you need everyday.
 They include `.bashrc`, `.profile`, `.vimrc`, and many others.
 
 The novelty in organization is for `.bashrc`, `.bash_profile` and `.profile`
