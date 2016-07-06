@@ -57,6 +57,7 @@ envclear()       { env -i "HOME=$HOME" "$@"; }
 envsort()        { env | sort              ; }
 grepconf()       { awk -v 'FS=#' '$1!~/^[ \t]*$/ {print}' "$@"; }
 grepconf2()      { awk -v 'FS=#' '$1!~/^[ \t]*$/ {print $1}' "$@"; }
+grepnr()         { grep -nr          "$@" *; }
 path()           { echo "$PATH"            ; }
 waitexist()      { waittrue test -e    "$@"; }
 wgettonull()     { wget -O /dev/null   "$@"; }
