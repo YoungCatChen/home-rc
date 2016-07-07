@@ -1,3 +1,6 @@
 [submodule "maximum-awesome"]
 	path = maximum-awesome
 	url = https://github.com/YoungCatChen/maximum-awesome.git
+[submodule "zprezto"]
+	path = zprezto
+	url = https://github.com/YoungCatChen/zprezto.git
