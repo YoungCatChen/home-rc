@@ -43,7 +43,7 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the query found color.
-zstyle ':prezto:module:autosuggestions:color' found ''
+zstyle ':prezto:module:autosuggestions:color' found 'fg=8'
 
 #
 # Editor
@@ -130,11 +130,7 @@ zstyle ':prezto:module:prompt' theme 'agnoster'
 # By default, only the main highlighter is enabled.
 zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
-  'brackets' \
-  'pattern' \
-  'line' \
-  'cursor' \
-  'root'
+  'brackets'
 
 # Set syntax highlighting styles.
 # zstyle ':prezto:module:syntax-highlighting' styles \
