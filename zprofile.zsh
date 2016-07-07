@@ -1,8 +1,17 @@
 source "$HOME/.home-rc.settings"
 source "$CODEROOT/zprezto/runcoms/zprofile"
 
-export EDITOR='vi'
-export VISUAL='vim'
+export EDITOR="$editor"
+export VISUAL="$editor"
+export TIME_STYLE='$time_style'
+
+if [[ -n "$lang" ]]; then
+  export LANG="$lang"
+  export LC_ALL="$lang"
+fi
+if [[ -n "$language" ]]; then
+  export LANGUAGE="$language"
+fi
 
 if [[ "$sbin_path" = yes ]]; then
   path=(
@@ -26,8 +35,7 @@ else
   )
 fi
 
-# export DEFAULT_USER= ??
-
 if [[ -r "$HOME/.zprofile.local" ]]; then
+  # export DEFAULT_USER= ??
   source "$HOME/.zprofile.local"
 fi
