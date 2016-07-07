@@ -15,13 +15,12 @@ maximum-awesome/vim           .vim
 maximum-awesome/vimrc         .vimrc
 maximum-awesome/vimrc.bundles .vimrc.bundles
 
-zprezto                   .zprezto
-zprezto/runcoms/zlogin    .zlogin
-zprezto/runcoms/zlogout   .zlogout
-zprezto/runcoms/zpreztorc .zpreztorc
-zprezto/runcoms/zprofile  .zprofile
-zprezto/runcoms/zshenv    .zshenv
-zprezto/runcoms/zshrc     .zshrc
+zpreztorc.zsh           .zpreztorc
+zprofile.zsh            .zprofile
+zshrc.zsh               .zshrc
+zprezto                 .zprezto
+zprezto/runcoms/zlogin  .zlogin
+zprezto/runcoms/zshenv  .zshenv
 '
 
 touches='
