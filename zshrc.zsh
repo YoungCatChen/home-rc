@@ -25,6 +25,9 @@ unset p OMZ_PLUGINS_DIR
 
 
 # MISC.
+alias -- -='cd -'
+alias cd-='cd -'
+alias cd..='cd ..'
 alias ...=../..
 alias ....=../../..
 alias .....=../../../..
@@ -43,7 +46,7 @@ bindkey '^[[H' beginning-of-line  # [Cmd-LeftArrow] - Go to beginning of line
 
 
 # Load user scripts.
-for f in $HOME/.*.env/profile.d/*.sh(N); do
+for f in $HOME/.*.env/profile.d/*.sh(N) $HOME/.*.env/zshrc.d/*.zsh(N); do
   source $f
 done
 unset f
