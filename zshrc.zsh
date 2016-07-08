@@ -24,6 +24,34 @@ done
 unset p OMZ_PLUGINS_DIR
 
 
+# Display last command's run time if it's longer than 10sec.
+_run_time_mark_start_time() {
+  _run_time_start_timestamp="$( date +%s )"
+}
+
+_run_time_find_end_time() {
+  [[ -n "$_run_time_start_timestamp" ]] || return
+
+  local end_timestamp="$( date +%s )"
+  local i
+  (( i = $end_timestamp - $_run_time_start_timestamp ))
+
+  if [[ $i -ge 10 ]]; then
+    local sec min hrs
+    (( sec=i%60, i/=60, min=i%60, hrs=i/60))
+    local start_time="$( date -d @$_run_time_start_timestamp '+%m-%d %H:%M:%S')"
+    local end_time="$( date -d @$end_timestamp '+%m-%d %H:%M:%S')"
+    local duration="$( printf '%d:%02d:%02d' $hrs $min $sec )"
+    print -P "%B%F{1}❮%F{3}❮%F{2}❮%f ELAPSED:%b $duration. %BSTART:%b $start_time. %BEND:%b $end_time. %B%F{2}❯%F{3}❯%F{1}❯%f%b"
+  fi
+
+  unset _run_time_start_timestamp
+}
+
+preexec_functions+=( '_run_time_mark_start_time' )
+precmd_functions=( '_run_time_find_end_time' $precmd_functions )
+
+
 # MISC.
 alias -- -='cd -'
 alias cd-='cd -'
