@@ -1,7 +1,13 @@
 source "$CODEROOT/zprezto/runcoms/zshrc"
 
-unset -f [ false echo kill printf pwd test true
+
+# Patch to the libraries.
+unset -f [ false echo kill printf pwd test true 2>/dev/null || true
 zstyle ':completion:*' users
+
+function prompt_sorin_pwd {
+  _prompt_sorin_pwd="${PWD/#$HOME/~}"
+}
 
 
 # Load oh-my-zsh plugins.

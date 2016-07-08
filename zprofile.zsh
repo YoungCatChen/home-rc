@@ -3,7 +3,7 @@ source "$CODEROOT/zprezto/runcoms/zprofile"
 
 export EDITOR="$editor"
 export VISUAL="$editor"
-export TIME_STYLE='$time_style'
+export TIME_STYLE="$time_style"
 
 if [[ -n "$lang" ]]; then
   export LANG="$lang"
