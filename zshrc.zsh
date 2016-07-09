@@ -21,7 +21,7 @@ omg_plugins=(
 for p in $omg_plugins; do
   source "$OMZ_PLUGINS_DIR/$p/$p.plugin.zsh"
 done
-unset p OMZ_PLUGINS_DIR
+unset p omg_plugins OMZ_PLUGINS_DIR
 
 
 # Display last command's run time if it's longer than 10sec.
@@ -36,7 +36,7 @@ _run_time_find_end_time() {
   local i
   (( i = $end_timestamp - $_run_time_start_timestamp ))
 
-  if [[ $i -ge 10 ]]; then
+  if (( $i >= 10 )); then
     local sec min hrs
     (( sec=i%60, i/=60, min=i%60, hrs=i/60))
     local start_time="$( date -d @$_run_time_start_timestamp '+%m-%d %H:%M:%S')"
