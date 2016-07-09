@@ -164,3 +164,8 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %1~'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+
+
+if [[ -r "$HOME/.zpreztorc.local" ]]; then
+  source "$HOME/.zpreztorc.local"
+fi
