@@ -5,8 +5,8 @@ source "$CODEROOT/zprezto/runcoms/zshrc"
 unset -f [ false echo kill printf pwd test true 2>/dev/null || true
 zstyle ':completion:*' users
 
-function prompt_sorin_pwd {
-  _prompt_sorin_pwd="${PWD/#$HOME/~}"
+function prompt_sorin_pwd() {
+  _prompt_sorin_pwd='%~'
 }
 
 
@@ -48,8 +48,8 @@ _run_time_find_end_time() {
   unset _run_time_start_timestamp
 }
 
-preexec_functions+=( '_run_time_mark_start_time' )
-precmd_functions=( '_run_time_find_end_time' $precmd_functions )
+add-zsh-hook preexec _run_time_mark_start_time
+add-zsh-hook precmd  _run_time_find_end_time
 
 
 # MISC.
