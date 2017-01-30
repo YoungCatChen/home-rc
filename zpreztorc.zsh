@@ -128,6 +128,12 @@ zstyle ':prezto:module:prompt' theme 'sorin'
 #
 
 # Set syntax highlighters.
+if autoload -Uz is-at-least && is-at-least 5.1; then
+  zstyle ':prezto:module:syntax-highlighting' color 'yes'
+else
+  zstyle ':prezto:module:syntax-highlighting' color 'no'
+fi
+
 # By default, only the main highlighter is enabled.
 zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
