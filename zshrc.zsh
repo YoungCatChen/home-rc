@@ -1,14 +1,54 @@
 source "$CODEROOT/zprezto/runcoms/zshrc"
 
-
-# Patch to the libraries.
-unset -f [ false echo kill printf pwd test true 2>/dev/null || true
-zstyle ':completion:*' users
-
+########## Patch: zprezto/modules/prompt/functions/prompt_sorin_setup ##########
 function prompt_sorin_pwd() {
   _prompt_sorin_pwd='%~'
 }
 
+################### Patch: zprezto/modules/terminal/init.zsh ###################
+# Sets the terminal or terminal multiplexer window title.
+function set-window-title {
+    # <- patch
+}
+
+# Sets the terminal tab title.
+function set-tab-title {
+  local title_format{,ted}
+  zstyle -s ':prezto:module:terminal:tab-title' format 'title_format' || title_format="%s"
+  zformat -f title_formatted "$title_format" "s:$argv"
+  printf "\e]0;%s\a" ${(V%)title_formatted}  # <- patch
+}
+
+# Sets the tab and window titles with a given path.
+function _terminal-set-titles-with-path {
+  emulate -L zsh
+  setopt EXTENDED_GLOB
+
+  local absolute_path="${${1:a}:-$PWD}"
+  local abbreviated_path="${absolute_path/#$HOME/~}"
+  local truncated_path="${abbreviated_path/(#m)?(#c15,)/...${MATCH[-12,-1]}}"
+  local -a arr  # <- patch
+  arr=("$abbreviated_path" "$truncated_path")
+  unset MATCH absolute_path abbreviated_path truncated_path
+
+  set-window-title "${arr[1]}"
+  set-tab-title "${arr[2]}"
+}
+
+if zstyle -t ':prezto:module:terminal' auto-title; then
+  # Sets the tab and window titles before the prompt is displayed.
+  add-zsh-hook precmd _terminal-set-titles-with-path
+  # Sets the tab and window titles before command execution.
+  add-zsh-hook preexec _terminal-set-titles-with-command
+fi
+
+
+
+################################# Our settings #################################
+
+# Disable some slow operations.
+unset -f [ false echo kill printf pwd test true 2>/dev/null || true
+zstyle ':completion:*' users
 
 # Load oh-my-zsh plugins.
 OMZ_PLUGINS_DIR="$CODEROOT/oh-my-zsh/plugins"
