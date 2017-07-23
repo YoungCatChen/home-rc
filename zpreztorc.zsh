@@ -23,21 +23,7 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
-zstyle ':prezto:load' pmodule \
-  'environment' \
-  'terminal' \
-  'editor' \
-  'history' \
-  'directory' \
-  'spectrum' \
-  'gnu-utility' \
-  'utility' \
-  'completion' \
-  'git' \
-  'command-not-found' \
-  'syntax-highlighting' \
-  'autosuggestions' \
-  'prompt'
+zstyle ':prezto:load' pmodule ${=zsh_enable_modules}
 
 #
 # Autosuggestions
