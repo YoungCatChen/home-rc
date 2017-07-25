@@ -4,6 +4,7 @@ source "$CODEROOT/zprezto/runcoms/zprofile"
 export EDITOR="$editor"
 export VISUAL="$editor"
 export TIME_STYLE="$time_style"
+export ZSH_ENABLE_MODULES="$zsh_enable_modules"
 
 if [[ -n "$lang" ]]; then
   export LANG="$lang"

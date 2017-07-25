@@ -23,7 +23,7 @@ zstyle ':prezto:*:*' color 'yes'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
-zstyle ':prezto:load' pmodule ${=zsh_enable_modules}
+zstyle ':prezto:load' pmodule ${=ZSH_ENABLE_MODULES}
 
 #
 # Autosuggestions
