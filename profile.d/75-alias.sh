@@ -1,6 +1,4 @@
 ### direct2cache head START ###
-unalias -a
-
 alias  vialiases='vi "$HOME/.profile.local"'
 alias applyaliases='. $HOME/.profile.local; true'
 
