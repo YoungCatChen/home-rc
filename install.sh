@@ -79,7 +79,7 @@ done
 
 if [ ! -f "$HOME/.home-rc.settings" ]; then
   {
-    grep '=' defaults.sh
+    cat defaults.sh
     echo "export CODEROOT='$PWD'"
     echo "export CODEROOTREL='$rel'"
   } | execcmd tee "$HOME/.home-rc.settings"

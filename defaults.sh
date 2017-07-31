@@ -29,3 +29,4 @@ zsh_enable_modules='
 
 # To be added by install.sh:
 # export CODEROOT=
+# export CODEROOTREL=

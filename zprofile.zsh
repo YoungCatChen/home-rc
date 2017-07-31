@@ -18,9 +18,9 @@ if [[ "$sbin_path" = yes ]]; then
   path=(
     $HOME/bin
     $HOME/usr/{sbin,bin}
-    $HOME/Code/home-rc/bin
-    $HOME/Code/home-rc/bin/dot
-    $HOME/.*.env/bin
+    $CODEROOT/bin
+    $CODEROOT/bin/dot
+    $HOME/.*.env/bin(N)
     /usr/local/{sbin,bin}
     $path
   )
@@ -28,9 +28,9 @@ else
   path=(
     $HOME/bin
     $HOME/usr/bin
-    $HOME/Code/home-rc/bin
-    $HOME/Code/home-rc/bin/dot
-    $HOME/.*.env/bin
+    $CODEROOT/bin
+    $CODEROOT/bin/dot
+    $HOME/.*.env/bin(N)
     /usr/local/bin
     $path
   )
