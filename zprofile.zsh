@@ -35,8 +35,3 @@ else
     $path
   )
 fi
-
-if [[ -r "$HOME/.zprofile.local" ]]; then
-  # export DEFAULT_USER= ??
-  source "$HOME/.zprofile.local"
-fi

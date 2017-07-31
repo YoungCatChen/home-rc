@@ -93,18 +93,6 @@ add-zsh-hook precmd  _run_time_find_end_time
 
 
 # MISC.
-alias -- -='cd -'
-alias cd-='cd -'
-alias cd..='cd ..'
-alias ...=../..
-alias ....=../../..
-alias .....=../../../..
-alias ......=../../../../..
-alias .......=../../../../../..
-alias l='ls'
-alias la='ls -a'
-alias lla='ls -lA'
-alias lld='ls -ld'
 function grepnr() { grep -nr "$@" *; }
 
 bindkey '^[[1;9C' forward-word   # [Ctrl-RightArrow] - move forward one word
@@ -114,11 +102,13 @@ bindkey '^[[H' beginning-of-line  # [Cmd-LeftArrow] - Go to beginning of line
 
 
 # Load user scripts.
-for f in $HOME/.*.env/profile.d/*.sh(N) $HOME/.*.env/zshrc.d/*.zsh(N); do
+for f in \
+    $CODEROOT/zprofile.d/*.zsh(N) \
+    $HOME/.*.env/profile.d/*.sh(N) \
+    $CODEROOT/zshrc.d/*.zsh(N) \
+    $HOME/.*.env/zshrc.d/*.zsh(N) \
+    "$HOME/.zprofile.local"(N) \
+    "$HOME/.zshrc.local"(N); do
   source $f
 done
 unset f
-
-if [[ -r "$HOME/.zshrc.local" ]]; then
-  source "$HOME/.zshrc.local"
-fi
