@@ -29,7 +29,7 @@ function _terminal-set-titles-with-path {
   local truncated_path="${abbreviated_path/(#m)?(#c15,)/...${MATCH[-12,-1]}}"
   local -a arr  # <- patch
   arr=("$abbreviated_path" "$truncated_path")
-  unset MATCH absolute_path abbreviated_path truncated_path
+  unset MATCH absolute_path abbreviated_path truncated_path _prompt_sorin_pwd
 
   set-window-title "${arr[1]}"
   set-tab-title "${arr[2]}"
