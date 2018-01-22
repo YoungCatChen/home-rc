@@ -1,7 +1,7 @@
 source "$CODEROOT/zprezto/runcoms/zshrc"
 
 ########## Patch: zprezto/modules/prompt/functions/prompt_sorin_setup ##########
-function prompt_sorin_pwd() {
+function prompt_sorin_precmd() {
   _prompt_sorin_pwd='%~'
 }
 
@@ -29,10 +29,13 @@ function _terminal-set-titles-with-path {
   local truncated_path="${abbreviated_path/(#m)?(#c15,)/...${MATCH[-12,-1]}}"
   local -a arr  # <- patch
   arr=("$abbreviated_path" "$truncated_path")
-  unset MATCH absolute_path abbreviated_path truncated_path _prompt_sorin_pwd
+  unset MATCH absolute_path abbreviated_path truncated_path
 
-  set-window-title "${arr[1]}"
+  if [[ "$TERM" == screen* ]]; then
+    set-multiplexer-title "${arr[2]}"
+  fi
   set-tab-title "${arr[2]}"
+  set-window-title "${arr[1]}"
 }
 
 if zstyle -t ':prezto:module:terminal' auto-title; then
