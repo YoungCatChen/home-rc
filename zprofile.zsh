@@ -1,6 +1,7 @@
 source "$HOME/.home-rc.settings"
 source "$CODEROOT/zprezto/runcoms/zprofile"
 
+setopt nonomatch
 export EDITOR="$editor"
 export VISUAL="$editor"
 export TIME_STYLE="$time_style"
