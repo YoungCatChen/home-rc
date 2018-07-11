@@ -1,6 +1,9 @@
 source "$HOME/.home-rc.settings"
 source "$CODEROOT/zprezto/runcoms/zprofile"
 
+
+# Export environments from user's home-rc settings.
+
 setopt nonomatch
 export EDITOR="$editor"
 export VISUAL="$editor"
@@ -15,24 +18,31 @@ if [[ -n "$language" ]]; then
   export LANGUAGE="$language"
 fi
 
-if [[ "$sbin_path" = yes ]]; then
-  path=(
-    $HOME/bin
-    $HOME/usr/{sbin,bin}
-    $CODEROOT/bin
-    $CODEROOT/bin/dot
-    $HOME/.*.env/bin(N)
-    /usr/local/{sbin,bin}
-    $path
-  )
-else
-  path=(
+
+# Insert several entries to path.
+
+function insert_to_path() {
+  local pos=${path[(i)$2]}
+  if [[ "$1" = after && $pos < ${#path} ]]; then
+    (( pos++ ))
+  fi
+  path[pos,0]=( $INSERT )
+}
+
+local -a INSERT
+INSERT=( /usr/bin ); insert_to_path before /bin
+INSERT=( /usr/local/bin ); insert_to_path before /usr/bin
+INSERT=(
     $HOME/bin
     $HOME/usr/bin
     $CODEROOT/bin
     $CODEROOT/bin/dot
     $HOME/.*.env/bin(N)
-    /usr/local/bin
-    $path
-  )
+  ); insert_to_path before /usr/local/bin
+
+if [[ "$sbin_path" = yes ]]; then
+  INSERT=( /usr/local/sbin ); insert_to_path after /usr/local/bin
+  INSERT=( $HOME/usr/sbin ); insert_to_path after $HOME/usr/bin
 fi
+
+unset insert_to_path

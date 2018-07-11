@@ -58,7 +58,7 @@ envsort()        { env | sort              ; }
 grepconf()       { gawk -v 'FS=[#|//]' '$1!~/^[ \t]*$/ {print}' "$@"; }
 grepconf2()      { gawk -v 'FS=[#|//]' '$1!~/^[ \t]*$/ {print $1}' "$@"; }
 grepnr()         { grep -nr          "$@" *; }
-path()           { echo "$PATH"            ; }
+path()           { echo "$PATH" | tr : '\n'; }
 waitexist()      { waittrue test -e    "$@"; }
 wgettonull()     { wget -O /dev/null   "$@"; }
 
