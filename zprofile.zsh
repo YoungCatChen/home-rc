@@ -1,12 +1,27 @@
-source "$HOME/.home-rc.settings"
-source "$CODEROOT/zprezto/runcoms/zprofile"
+# Selective contents from zprezto/runcoms/zprofile
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+fi
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi
+
+typeset -gU cdpath fpath mailpath path
+
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
 
 
 # Export environments from user's home-rc settings.
 
+source "$HOME/.home-rc.settings"
 setopt nonomatch
 export EDITOR="$editor"
 export VISUAL="$editor"
+export PAGER='less'
 export TIME_STYLE="$time_style"
 export ZSH_ENABLE_MODULES="$zsh_enable_modules"
 
