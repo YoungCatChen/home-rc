@@ -1,6 +1,6 @@
 [submodule "maximum-awesome"]
 	path = maximum-awesome
-	url = https://github.com/YoungCatChen/maximum-awesome.git
+	url = git@github.com:YoungCatChen/maximum-awesome.git
 [submodule "oh-my-zsh"]
 	path = oh-my-zsh
 	url = https://github.com/robbyrussell/oh-my-zsh.git
