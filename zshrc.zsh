@@ -69,21 +69,21 @@ unset p omg_plugins OMZ_PLUGINS_DIR
 
 # Display last command's run time if it's longer than 10sec.
 _run_time_mark_start_time() {
-  _run_time_start_timestamp="$( date +%s )"
+  _run_time_start_timestamp="$( strftime %s )"
 }
 
 _run_time_find_end_time() {
   [[ -n "$_run_time_start_timestamp" ]] || return
 
-  local end_timestamp="$( date +%s )"
+  local end_timestamp="$( strftime %s )"
   local i
   (( i = $end_timestamp - $_run_time_start_timestamp ))
 
   if (( $i >= 10 )); then
     local sec min hrs
     (( sec=i%60, i/=60, min=i%60, hrs=i/60))
-    local start_time="$( date -d @$_run_time_start_timestamp '+%m-%d %H:%M:%S')"
-    local end_time="$( date -d @$end_timestamp '+%m-%d %H:%M:%S')"
+    local start_time="$( strftime '%m-%d %H:%M:%S' $_run_time_start_timestamp )"
+    local end_time="$( strftime '%m-%d %H:%M:%S' $end_timestamp )"
     local duration="$( printf '%d:%02d:%02d' $hrs $min $sec )"
     print -P "%B%F{1}❮%F{3}❮%F{2}❮%f ELAPSED:%b $duration. %BSTART:%b $start_time. %BEND:%b $end_time. %B%F{2}❯%F{3}❯%F{1}❯%f%b"
   fi
@@ -115,3 +115,7 @@ for f in \
   source $f
 done
 unset f
+
+
+# Load Angular CLI autocompletion.
+#source <(ng completion script)
