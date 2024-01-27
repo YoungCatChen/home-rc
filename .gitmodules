@@ -7,3 +7,6 @@
 [submodule "zprezto"]
 	path = zprezto
 	url = https://github.com/sorin-ionescu/prezto.git
+[submodule "fish/fish-history-merge"]
+	path = fish/fish-history-merge
+	url = https://github.com/2m/fish-history-merge.git
