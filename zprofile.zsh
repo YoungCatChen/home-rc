@@ -54,12 +54,8 @@ INSERT=(
     $CODEROOT/bin/dot
     $HOME/.*.env/bin(N)
   ); insert_to_path before /usr/local/bin
-
-if [[ "$sbin_path" = yes ]]; then
-  INSERT=( /usr/local/sbin ); insert_to_path after /usr/local/bin
-  INSERT=( $HOME/usr/sbin ); insert_to_path after $HOME/usr/bin
-fi
-
+INSERT=( /usr/local/sbin ); insert_to_path after /usr/local/bin
+INSERT=( $HOME/usr/sbin ); insert_to_path after $HOME/usr/bin
 unset insert_to_path INSERT
 
 if [[ -x /opt/homebrew/bin/brew ]]; then

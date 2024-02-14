@@ -1,8 +1,6 @@
-if [ "$sbin_path" = yes ]; then
-  pathprepend /sbin
-  pathprepend /usr/sbin
-  pathprepend /usr/local/sbin
-fi
+pathprepend /sbin
+pathprepend /usr/sbin
+pathprepend /usr/local/sbin
 
 for M in "$HOME"/.*env/bin; do
   [ -d "$M" ] && pathprepend "$M"

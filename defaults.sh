@@ -1,13 +1,12 @@
 # This file will be copy to $HOME/.home-rc.settings .
 
 bash_completion=
-cd_and_d=
+cd_and_cdh=yes
 editor=vim
 force_bash=no
-lang=
-language=
+lang=en_US.UTF-8
+language=en_US.UTF-8
 multiline_prompt=no
-sbin_path=no
 time_style=iso
 
 zsh_enable_modules='

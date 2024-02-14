@@ -1,10 +1,10 @@
 # Inspired by https://gist.github.com/bobbydavid/3752931.
 
-if [ "$cd_and_d" == yes ]; then
+if [ "$cd_and_cdh" == yes ]; then
   alias cd=_cd_using_pushd
-  alias d=_d_using_dirs
+  alias cdh=_cdh_using_dirs
   _echo2cache 'alias cd=_cd_using_pushd'
-  _echo2cache 'alias d=_d_using_dirs'
+  _echo2cache 'alias cdh=_cdh_using_dirs'
 fi
 
 ### direct2cache head START ###
@@ -40,7 +40,7 @@ _cd_using_pushd() {
   fi
 }
 
-_d_using_dirs() {
+_cdh_using_dirs() {
   builtin dirs -v | _d_substitute | awk -F"  " '
   BEGIN {
     OFS="  "
