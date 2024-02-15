@@ -1,5 +1,3 @@
-if not status is-interactive; return; end
-
 if command ls --group-directories-first / &> /dev/null
   functions --copy ls __fish_ls
   alias ls '__fish_ls --group-directories-first'

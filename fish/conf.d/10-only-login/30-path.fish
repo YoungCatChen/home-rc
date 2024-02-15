@@ -1,6 +1,4 @@
-if not status is-login; return; end
-
-fish_add_path --global \
+fish_add_path --global --path \
   ~/bin \
   ~/usr/bin \
   ~/usr/sbin \

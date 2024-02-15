@@ -1,5 +1,3 @@
-if not status is-interactive; return; end
-
 function __print_duration_record_start_time --on-event fish_preexec
   set -g __print_duration_start_time (date '+%m-%d %H:%M:%S')
 end
