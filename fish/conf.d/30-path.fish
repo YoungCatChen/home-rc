@@ -1,8 +1,6 @@
 if not status is-login; return; end
 
-# TODO: mimic insert_to_path, not prepending to the front
-
-fish_add_path --global --move \
+fish_add_path --global \
   ~/bin \
   ~/usr/bin \
   ~/usr/sbin \
