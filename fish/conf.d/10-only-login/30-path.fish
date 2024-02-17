@@ -4,6 +4,7 @@ fish_add_path --global --path \
   ~/usr/sbin \
   (path resolve ~/.*.env/bin) \
   $CODEROOT/bin \
+  /opt/homebrew/bin \
   /usr/local/bin \
   /usr/bin \
   /bin \
