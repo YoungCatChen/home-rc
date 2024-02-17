@@ -1,7 +1,4 @@
 #!/bin/sh
-[ -n "$CODEROOT" ] || . "$HOME/.home-rc.settings"
-[ -n "$MYLOGNAME" ] || . "$CODEROOT/bin/mylogname"
-
 ### direct2cache head START ###
 
 nullit()     { "$@"; } >/dev/null 2>&1
@@ -41,5 +38,3 @@ else
 fi
 
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

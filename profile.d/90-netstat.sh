@@ -8,5 +8,3 @@ netstattcpstate() {
 		awk '/^tcp/ {++S[$NF]} END {for(a in S) print a "\t" S[a]}';
 }
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

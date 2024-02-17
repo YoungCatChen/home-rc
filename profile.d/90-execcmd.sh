@@ -32,5 +32,3 @@ execcmd_after()
 }
 
 #### direct2cache head END ####
-
-[ -r "$HOME/.execfunc.sh" ] && . "$HOME/.execfunc.sh"

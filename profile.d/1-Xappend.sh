@@ -100,5 +100,3 @@ else
 fi
 
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

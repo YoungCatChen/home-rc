@@ -64,5 +64,3 @@ wgettonull()     { wget -O /dev/null   "$@"; }
 
 
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

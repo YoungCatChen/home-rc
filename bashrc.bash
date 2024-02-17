@@ -1,13 +1,13 @@
 [ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=no
 [ -z "$INCLUDE_NAME" ] && INCLUDE_NAME=bashrc
 
-export INCLUDE_FILES='    \
-  $CODEROOT/profile.d/*   \
-  $HOME/.*env/profile.d/* \
-  $CODEROOT/bashrc.d/*    \
-  $HOME/.*env/bashrc.d/*  \
-  $HOME/.profile.local    \
-  $HOME/.bashrc.local     \
+export INCLUDE_FILES='         \
+  $CODEROOT/profile.d/*.sh     \
+  $HOME/.*env/profile.d/*.sh   \
+  $CODEROOT/bashrc.d/*.bash    \
+  $HOME/.*env/bashrc.d/*.bash  \
+  $HOME/.profile.local         \
+  $HOME/.bashrc.local          \
 '
 
 . "$HOME/.profile"

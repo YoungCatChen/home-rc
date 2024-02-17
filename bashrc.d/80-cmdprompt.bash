@@ -1,9 +1,4 @@
 ### direct2cache head START ###
-prompt_exit_color() {
-  EXIT=$?
-  [ $EXIT -eq 0 ] && EXITSTATUS= || EXITSTATUS='$?='"$EXIT "
-}
-
 attach_ps1() {
   a_p_USER=
   [ "$WHOAMI" = "$MYLOGNAME" ] || a_p_USER="$WHOAMI@"
@@ -23,18 +18,15 @@ attach_ps1() {
 }
 #### direct2cache head END ####
 
-
-PROMPT_COMMAND=`varprepend "$PROMPT_COMMAND" ';' 'prompt_exit_color'`
-_echo2cache "PROMPT_COMMAND='$PROMPT_COMMAND'"
 _echo2cache 'type update_terminal_cwd >/dev/null 2>/dev/null || update_terminal_cwd() { :; }'
 
 M="$multiline_prompt"
 [ "$M" = '' ] && is_cygwin && M=yes
 
 if [ "$M" = yes ]; then
-  PS1='\n\[\e[1;31m\]$EXITSTATUS\[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w\n\[\e[1;37m\]\$ \[\e[m\]'
+  PS1='\n\[\e[1;3${?/[1-9]*/1}m\]$? \[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w\n\[\e[1;37m\]\$ \[\e[m\]'
 else
-  PS1='\[\e[1;31m\]$EXITSTATUS\[\e[m\e[32m\][\u@\h \[\e[m\e[33m\]\w\[\e[m\e[32m\]]\[\e[1;37m\]\$ \[\e[m\]'
+  PS1='\[\e[1;3${?/[1-9]*/1}m\]$? \[\e[m\e[32m\][\u@\h \[\e[m\e[33m\]\w\[\e[m\e[32m\]]\[\e[1;37m\]\$ \[\e[m\]'
 fi
 
 unset M

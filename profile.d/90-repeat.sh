@@ -18,5 +18,3 @@ repeat() {
 }
 
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

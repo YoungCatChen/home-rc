@@ -15,5 +15,3 @@ contains() {
 }
 
 #### direct2cache head END ####
-
-. ~/.execfunc.sh

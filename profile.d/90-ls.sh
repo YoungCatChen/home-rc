@@ -1,9 +1,4 @@
 #!/bin/sh
-[ -n "$CODEROOT" ] || {
-	. "$HOME/.home-rc.settings"
-	. "$CODEROOT/bin/nullit"
-	. "$CODEROOT/bin/_echo2cache"
-}
 
 [ -n "$LOADED_LS" ] || {
 	export LOADED_LS=1
@@ -32,14 +27,3 @@ dir()  { ls      "$@";  }
 alias l.='ls -d .*'
 alias ll.='ll -d .*'
 #### direct2cache head END ####
-
-
-if   [ "$0" != "${0%/l.}" ]; then
-	ls -d .*
-	exit $?
-elif [ "$0" != "${0%/ll.}" ]; then
-	ls -ld .*
-	exit $?
-fi
-
-. "$HOME/.execfunc.sh"

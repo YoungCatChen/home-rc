@@ -4,7 +4,6 @@ links='
 bash_profile.bash .bash_profile
 bashrc.bash       .bashrc
 ctags             .ctags
-execfunc.sh       .execfunc.sh
 lftprc            .lftprc
 profile.sh        .profile
 screenrc          .screenrc

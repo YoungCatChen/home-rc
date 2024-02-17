@@ -1,10 +1,4 @@
 #!/bin/sh
-[ -n "$CODEROOT" ] || {
-	. "$HOME/.home-rc.settings"
-	. "$CODEROOT/bin/have"
-	. "$CODEROOT/bin/nullit"
-	. "$CODEROOT/bin/_echo2cache"
-}
 
 [ -n "$LOADED_VIM" ] || {
 	export LOADED_VIM=1
@@ -68,6 +62,3 @@ vimless() {
 	fi
 }
 #### direct2cache head END ####
-
-
-. "$HOME/.execfunc.sh"

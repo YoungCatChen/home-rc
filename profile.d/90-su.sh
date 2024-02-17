@@ -1,9 +1,4 @@
 #!/bin/sh
-[ -n "$CODEROOT" ] || {
-	. "$HOME/.home-rc.settings"
-	. "$CODEROOT/bin/nullit"
-	. "$CODEROOT/bin/_echo2cache"
-}
 
 [ -n "$LOADED_SU" ] || {
 	export LOADED_SU=1
@@ -18,5 +13,3 @@ _echo2cache "
 sudo()  { command sudo $SUDOE  "$@"; }
 sudos() { sudo -s "$@"; }
 #### direct2cache head END ####
-
-. "$HOME/.execfunc.sh"

@@ -8,9 +8,9 @@ INCLUDE_NAME="$INCLUDE_NAME.`/bin/hostname`"
 CACHE_OUT="$HOME/.cache/$INCLUDE_NAME"
 
 [ -z "$INCLUDE_FILES" ] && export INCLUDE_FILES=' \
-  $CODEROOT/profile.d/*   \
-  $HOME/.*env/profile.d/* \
-  $HOME/.profile.local    \
+  $CODEROOT/profile.d/*.sh   \
+  $HOME/.*env/profile.d/*.sh \
+  $HOME/.profile.local       \
 '
 
 # Useful functions
