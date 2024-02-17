@@ -13,13 +13,6 @@ maximum-awesome/tmux.conf     .tmux.conf
 maximum-awesome/vim           .vim
 maximum-awesome/vimrc         .vimrc
 maximum-awesome/vimrc.bundles .vimrc.bundles
-
-zpreztorc.zsh           .zpreztorc
-zprofile.zsh            .zprofile
-zshrc.zsh               .zshrc
-zprezto                 .zprezto
-zprezto/runcoms/zlogin  .zlogin
-zprezto/runcoms/zshenv  .zshenv
 '
 
 touches='
