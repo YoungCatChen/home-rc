@@ -1,20 +1,38 @@
-startswith() {
-  case "$1" in
-    "$2"*) return 0;;
-  esac
-  return 1
-}
+if [ -z "$BASH" ]; then
 
-endswith() {
-  case "$1" in
-    *"$2") return 0;;
-  esac
-  return 1
-}
+  startswith() {
+    case "$1" in
+      "$2"*) return 0;;
+    esac
+    return 1
+  }
 
-contains() {
-  case "$1" in
-    *"$2"*) return 0;;
-  esac
-  return 1
-}
+  endswith() {
+    case "$1" in
+      *"$2") return 0;;
+    esac
+    return 1
+  }
+
+  contains() {
+    case "$1" in
+      *"$2"*) return 0;;
+    esac
+    return 1
+  }
+
+else
+
+  startswith() {
+    [[ "$1" = "$2"* ]]
+  }
+
+  endswith() {
+    [[ "$1" = *"$2" ]]
+  }
+
+  contains() {
+    [[ "$1" = *"$2"* ]]
+  }
+
+fi
