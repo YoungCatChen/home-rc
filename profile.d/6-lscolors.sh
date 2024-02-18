@@ -3,8 +3,6 @@ if [ -x /usr/bin/dircolors ]; then
 	eval "`dircolors -b`"
 	LS_COLORS=`varappend "$LS_COLORS" ':' '*.img=01;31'`
 	LS_COLORS=`varappend "$LS_COLORS" ':' '*.iso=01;31'`
-	LS_COLORS=`varappend "$LS_COLORS" ':' '*.tbz=01;31'`
-	LS_COLORS=`varappend "$LS_COLORS" ':' '*.tbz2=01;31'`
 
 	echo "$LS_COLORS" | nullit grep 'TAR='
 
@@ -15,5 +13,4 @@ if [ -x /usr/bin/dircolors ]; then
 	}
 
 	export LS_COLORS
-	_echo2cache "export LS_COLORS='$LS_COLORS'"
 fi

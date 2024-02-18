@@ -1,6 +1,3 @@
-#!/bin/sh
-### direct2cache head START ###
-
 nullit()     { "$@"; } >/dev/null 2>&1
 have()       { nullit command -v "$1"; }
 havebin()    { nullit findbin "$1";    }
@@ -36,5 +33,3 @@ else
 	}
 
 fi
-
-#### direct2cache head END ####

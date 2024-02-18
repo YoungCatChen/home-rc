@@ -3,11 +3,8 @@
 if [ "$cd_and_cdh" == yes ]; then
   alias cd=_cd_using_pushd
   alias cdh=_cdh_using_dirs
-  _echo2cache 'alias cd=_cd_using_pushd'
-  _echo2cache 'alias cdh=_cdh_using_dirs'
 fi
 
-### direct2cache head START ###
 _cd_using_pushd() {
   # Change directories, but with pushd functionality.
   # 1) change to given directory.
@@ -74,4 +71,3 @@ _cdh_using_dirs() {
 _d_substitute() {
   cat
 }
-#### direct2cache head END ####

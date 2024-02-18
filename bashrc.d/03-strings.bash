@@ -1,7 +1,3 @@
-#!/bin/bash
-
-### direct2cache head START ###
-
 startswith() {
   [[ "$1" = "$2"* ]]
 }
@@ -13,5 +9,3 @@ endswith() {
 contains() {
   [[ "$1" = *"$2"* ]]
 }
-
-#### direct2cache head END ####

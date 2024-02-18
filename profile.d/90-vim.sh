@@ -1,32 +1,6 @@
-#!/bin/sh
+havebin vim || return
 
-[ -n "$LOADED_VIM" ] || {
-	export LOADED_VIM=1
-
-	if havebin vim; then
-		export VIMEXE=vim
-	elif havebin vim.bat; then
-		export VIMEXE=vim.bat
-	elif havebin vi; then
-		export VIMEXE=vi
-	fi
-
-	if havebin gvim; then
-		export GVIMEXE=gvim
-	elif havebin gvim.bat; then
-		export GVIMEXE=gvim.bat
-	fi
-}
-
-_echo2cache "
-	export LOADED_VIM=1
-	export VIMEXE='$VIMEXE'
-	export GVIMEXE='$GVIMEXE'"
-
-### direct2cache head START ###
-vi()       { command "$VIMEXE"  --cmd 'let g:exe="vi"'   "$@"; }
-vim()      { command "$VIMEXE"  --cmd 'let g:exe="vim"'  "$@"; }
-gvim()     { command "$GVIMEXE" --cmd 'let g:exe="gvim"' "$@"; }
+vi()       { vim     "$@"; }
 vidiff()   { vimdiff "$@"; }
 viless()   { vimless "$@"; }
 viin()     { vimin   "$@"; }
@@ -34,10 +8,6 @@ vihead()   { vimhead "$@"; }
 vitail()   { vimtail "$@"; }
 vimhead()  { head -n 10000 "$@" 2>&1 | vimless; }
 vimtail()  { tail -n 10000 "$@" 2>&1 | vimless; }
-
-vigrub() {
-	vim /boot/grub/grub.cfg "$@";
-}
 
 view() {
 	if test $# = 0; then
@@ -61,4 +31,3 @@ vimless() {
 			$POSITION "$@"
 	fi
 }
-#### direct2cache head END ####

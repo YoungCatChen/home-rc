@@ -1,11 +1,8 @@
-#!/bin/sh
-### direct2cache head START ###
-
 repeat() {
   local repeat_sleep
   repeat_sleep=2
 
-  if echo "$1" | grep -q '^[0-9]\+$' 2>/dev/null; then
+  if echo "$1" | command grep -q '^[0-9]\+$' 2>/dev/null; then
     repeat_sleep="$1"
     shift
   fi
@@ -16,5 +13,3 @@ repeat() {
 
   unset repeat_sleep
 }
-
-#### direct2cache head END ####

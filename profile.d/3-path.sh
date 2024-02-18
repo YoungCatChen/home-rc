@@ -12,5 +12,3 @@ pathprepend "$HOME/usr/bin"
 pathprepend "$HOME/usr/sbin"
 pathprepend "$HOME/bin"
 export PATH
-
-_echo2cache "export PATH='$PATH'"

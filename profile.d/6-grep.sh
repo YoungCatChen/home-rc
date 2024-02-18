@@ -2,17 +2,22 @@ appendgrep() {
 	GREP_OPTIONS="`varappend "$GREP_OPTIONS" ' ' "$1"`"
 }
 
-cangrep -I && appendgrep '-I'
-cangrep --color && appendgrep '--color'
-cangrep --exclude=MaGiC && WITH_EXCLUDE=1 || WITH_EXCLUDE=0
-[ $WITH_EXCLUDE -eq 1 ] && appendgrep '--exclude=tags' && appendgrep '--exclude=*~'
+grep() {
+  unset -f grep
 
-if cangrep '--exclude-dir=MaGiC'; then
-	appendgrep '--exclude-dir=.[^.]*'
-elif [ $WITH_EXCLUDE -eq 1 ]; then
-	appendgrep '--exclude=*.svn*'
-fi
+  cangrep -I && appendgrep '-I'
+  cangrep --color && appendgrep '--color'
+  cangrep --exclude=MaGiC && WITH_EXCLUDE=1 || WITH_EXCLUDE=0
+  [ $WITH_EXCLUDE -eq 1 ] && appendgrep '--exclude=tags' && appendgrep '--exclude=*~'
 
-unset appendgrep WITH_EXCLUDE
-export GREP_OPTIONS
-_echo2cache "export GREP_OPTIONS='$GREP_OPTIONS'"
+  if cangrep '--exclude-dir=MaGiC'; then
+    appendgrep '--exclude-dir=.[^.]*'
+  elif [ $WITH_EXCLUDE -eq 1 ]; then
+    appendgrep '--exclude=*.svn*'
+  fi
+
+  unset appendgrep WITH_EXCLUDE
+  export GREP_OPTIONS
+
+  grep "$@"
+}

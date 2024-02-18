@@ -1,6 +1,3 @@
-#!/bin/sh
-### direct2cache head START ###
-
 confappend() {
   # $1:  Identifier of caller.
   # $2:  A line to be added to the conf.
@@ -98,5 +95,3 @@ else
   }
 
 fi
-
-#### direct2cache head END ####

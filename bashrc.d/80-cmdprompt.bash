@@ -1,4 +1,3 @@
-### direct2cache head START ###
 attach_ps1() {
   a_p_USER=
   [ "$WHOAMI" = "$MYLOGNAME" ] || a_p_USER="$WHOAMI@"
@@ -16,9 +15,6 @@ attach_ps1() {
 
   unset a_p_USER
 }
-#### direct2cache head END ####
-
-_echo2cache 'type update_terminal_cwd >/dev/null 2>/dev/null || update_terminal_cwd() { :; }'
 
 M="$multiline_prompt"
 [ "$M" = '' ] && is_cygwin && M=yes
@@ -30,6 +26,4 @@ else
 fi
 
 unset M
-_echo2cache "PS1='$PS1'"
-_echo2cache attach_ps1
 
