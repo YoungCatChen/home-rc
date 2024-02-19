@@ -1,1 +1,1 @@
-set -x EDITOR "$editor"
+../../../profile.d/editor.sh

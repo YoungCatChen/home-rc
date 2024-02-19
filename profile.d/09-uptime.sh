@@ -1,6 +1,3 @@
-havebin uptime && {
-  case $0 in -*)
-    printf "uptime:"
-    uptime;;
-  esac
-}
+have uptime && \
+  printf 'uptime: ' && \
+  uptime

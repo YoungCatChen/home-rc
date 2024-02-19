@@ -15,15 +15,6 @@ tail1000()  { tail -n 1000  "$@"; }
 tail10000() { tail -n 10000 "$@"; }
 
 
-###### langset ######
-langset() {
-	LC_ALL="$1"
-	LANG="$1"
-	LANGUAGE="$2"
-	export LC_ALL LANG LANGUAGE
-}
-
-
 ###### screen ######
 lsscreen()  { screen -ls "$@"; }
 xscreen()   { screen -x  "$@"; }
@@ -32,9 +23,7 @@ xscreen()   { screen -x  "$@"; }
 ###### misc ######
 beep()           { printf %b \\a           ; }
 curltonull()     { curl -o /dev/null   "$@"; }
-dfh()            { df -h               "$@"; }
-dush()           { du -sh              "$@"; }
-envclear()       { env -i "HOME=$HOME" "$@"; }
+senvclear()       { env -i "HOME=$HOME" "$@"; }
 envsort()        { env | sort              ; }
 grepconf()       { gawk -v 'FS=[#|//]' '$1!~/^[ \t]*$/ {print}' "$@"; }
 grepconf2()      { gawk -v 'FS=[#|//]' '$1!~/^[ \t]*$/ {print $1}' "$@"; }

@@ -1,1 +1,1 @@
-../../profile.d/75-langset.sh
+../../profile.d/83-langset-alias.sh

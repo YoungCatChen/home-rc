@@ -1,1 +1,1 @@
-set -x TIME_STYLE "$time_style"
+../../../profile.d/timestyle.sh
