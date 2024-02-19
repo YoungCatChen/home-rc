@@ -1,2 +1,2 @@
-alias  dfh='df -h'
-alias dush='du -sh'
+abbr dfh  'df -h'
+abbr dush 'du -sh'

@@ -1,3 +1,3 @@
-alias      watch='watch -e -n1 '  # error exit; interval = 1s
-alias watchcolor='watch -c '
-alias  watchdiff='watchcolor --differences=cumulative '
+abbr watch      'watch -e -n1 '  # error exit; interval = 1s
+abbr watchcolor 'watch -c '
+abbr watchdiff  'watchcolor --differences=cumulative '

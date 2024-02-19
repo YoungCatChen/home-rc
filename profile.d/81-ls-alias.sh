@@ -1,5 +1,5 @@
-[ -z "$fish_pid" ] && alias ll="ls -lh" && alias la="ls -lAh"
-
-alias l=ls
-alias l.='ls -d .*'
-alias ll.='ll -d .*'
+abbr l   ls
+abbr ll  'ls -lh'
+abbr la  'ls -lAh'
+abbr l.  'ls -d .*'
+abbr ll. 'll -d .*'

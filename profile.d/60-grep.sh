@@ -21,3 +21,7 @@ grep() {
 
   grep "$@"
 }
+
+grepnr() {
+  grep -nr "$@" *
+}

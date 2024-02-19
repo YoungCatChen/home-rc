@@ -1,0 +1,2 @@
+#!/bin/sh
+exec gawk -v 'FS=[#|//]' '$1 !~ /^[ \t]*$/ {print $1}' "$@"
