@@ -18,5 +18,5 @@ function __print_duration --on-event fish_postexec
   set -l b (set_color --bold)
   set -l n (set_color normal)
 
-  printf "$b$r❮$y❮$g❮$w ELAPSED:$n %d:%02d:%02d.$b$w START:$n %s.$b$w END:$n %s. $b$g❯$y❯$r❯$n" $hrs $min $sec $__print_duration_start_time $end_time
+  printf "$b$r❮$y❮$g❮$w ELAPSED:$n %d:%02d:%02d.$b$w START:$n %s.$b$w END:$n %s. $b$g❯$y❯$r❯$n\n" $hrs $min $sec $__print_duration_start_time $end_time
 end
