@@ -1,8 +1,3 @@
 # Used as Fish scripts too.
 
-[ -n "$lang" ] && \
-  export LANG="$lang" \
-  export LC_ALL="$lang"
-
-[ -n "$language" ] && \
-  export LANGUAGE="$language"
+[ -n "$LANG" ] && export LC_ALL="$lang"

@@ -1,13 +1,14 @@
 # This file will be copy to $HOME/.home-rc.settings .
 
-bash_completion=
-cd_and_cdh=yes
-editor=vim
-force_bash=no
-lang=en_US.UTF-8
-language=en_US:en
-multiline_prompt=no
-time_style=iso
+export EDITOR=vim
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US:en
+export TIME_STYLE=iso
+
+export bash_completion=
+export cd_and_cdh=yes
+export force_bash=no
+export multiline_prompt=no
 
 # To be added by install.sh:
 # export CODEROOT=
