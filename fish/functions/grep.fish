@@ -1,3 +1,6 @@
+# Sets `grep`'s default options after detecting its functionality.
+# To be in sync with `grep.sh`.
+
 function cangrep
 	# $@:  Grep's options.
 	# $?:  True if the grep performed expectedly.

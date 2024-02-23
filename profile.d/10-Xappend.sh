@@ -6,7 +6,7 @@ confappend() {
   xa_COMMENT="  # Added by ConfXpend for $1"
   xa_LINE="$2"
   shift 2
-  grep -v "$xa_COMMENT$" "$@"
+  command grep -v "$xa_COMMENT$" "$@"
   echo "$xa_LINE$xa_COMMENT"
   unset xa_COMMENT xa_LINE
 }
@@ -16,7 +16,7 @@ confprepend() {
   xa_COMMENT="  # Added by ConfXpend for $1"
   echo "$2$xa_COMMENT"
   shift 2
-  grep -v "$xa_COMMENT$" "$@"
+  command grep -v "$xa_COMMENT$" "$@"
   unset xa_COMMENT
 }
 
