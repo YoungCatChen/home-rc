@@ -14,7 +14,7 @@ if [ -z "$BASH" ]; then
     return 1
   }
 
-  contains() {
+  string_contains() {
     case "$1" in
       *"$2"*) return 0;;
     esac
@@ -31,7 +31,7 @@ else
     [[ "$1" = *"$2" ]]
   }
 
-  contains() {
+  string_contains() {
     [[ "$1" = *"$2"* ]]
   }
 
