@@ -1,3 +1,6 @@
+# Sets the $PATH.
+# To be in sync with `30-path.fish`.
+
 pathprepend /sbin
 pathprepend /usr/sbin
 pathprepend /usr/local/sbin

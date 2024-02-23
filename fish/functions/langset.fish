@@ -1,5 +1,5 @@
 function langset
-	set -x LC_ALL "$1"
-	set -x LANG "$1"
-	set -x LANGUAGE "$2"
+	set -gx LC_ALL "$1"
+	set -gx LANG "$1"
+	set -gx LANGUAGE "$2"
 end

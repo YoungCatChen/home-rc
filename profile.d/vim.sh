@@ -1,3 +1,6 @@
+# Vim related shortcuts.
+# To be in sync with `vim.fish`.
+
 havebin vim || return
 
 vi()       { vim     "$@"; }

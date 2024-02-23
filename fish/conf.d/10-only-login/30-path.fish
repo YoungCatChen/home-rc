@@ -1,3 +1,6 @@
+# Sets the $PATH.
+# To be in sync with `30-path.sh`.
+
 fish_add_path --global --path \
   ~/bin \
   ~/usr/bin \

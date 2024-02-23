@@ -1,4 +1,7 @@
-if [ -x /usr/bin/dircolors ]; then
+# Sets $LS_COLORS with a few adjustments.
+# To be in sync with `lscolors.fish`.
+
+if have dircolors; then
 	unset LS_COLORS
 	eval "`dircolors -b`"
 	LS_COLORS=`varappend "$LS_COLORS" ':' '*.img=01;31'`
