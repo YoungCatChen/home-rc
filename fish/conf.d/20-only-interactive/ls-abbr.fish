@@ -1,1 +1,1 @@
-../../../profile.d/81-ls-alias.sh
+../../../profile.d/ls-alias.sh

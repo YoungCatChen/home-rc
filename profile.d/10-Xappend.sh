@@ -35,10 +35,6 @@ cronappend() {
   unset xa_CALLER xa_HOUR xa_LINE xa_MINUTE xa_NAME xa_T
 }
 
-cronappend_svnup() {
-  cronappend "svn up '$PWD' --accept theirs-full" 'svnup'
-}
-
 pathappend() {
   # $1:  New part to be added to $PATH.
   # No return value. $PATH is modified.
