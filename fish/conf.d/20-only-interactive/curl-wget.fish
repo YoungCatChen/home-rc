@@ -1,1 +1,0 @@
-../../../profile.d/curl-wget.sh

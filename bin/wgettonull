@@ -1,0 +1,2 @@
+#/bin/sh
+exec wget -v -O /dev/null "$@"
