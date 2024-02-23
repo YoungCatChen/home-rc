@@ -1,3 +1,7 @@
+# Adds cd-related abbrs like `cd-`, `cd..`, `cd....`
+# as well as `-` and `...` without spelling out "cd".
+# To be in sync with `cd.sh`.
+
 abbr --add -- '-' 'cd -'
 abbr --add -- 'cd-' 'cd -'
 

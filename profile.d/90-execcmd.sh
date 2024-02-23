@@ -1,5 +1,4 @@
 #!/bin/bash
-### direct2cache head START ###
 
 execcmd()
 {
@@ -30,5 +29,3 @@ execcmd_after()
   printf '#\033[1;31m $? = '"$1"' \033[m\n'
   return "$1"
 }
-
-#### direct2cache head END ####
