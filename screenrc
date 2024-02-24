@@ -9,8 +9,8 @@
 termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
 
 # Contents of the hardstatus line.
-# %S -
-# %h - the stored hardstatus of the current window.
+# %S - session name (only work on newer versions of gnu-screen)
+# %h - the stored hardstatus of the current window
 hardstatus string "[%S] %h"
 
 ###### OTHER SETTINGS ######
