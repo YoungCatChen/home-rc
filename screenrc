@@ -1,29 +1,34 @@
-term screen-256color
-startup_message off
-altscreen on
-autodetach on
-defflow on  # will force screen to process ^S/^Q
-defscrollback 10000
-fit
-hardstatus string "[%S] %h"
+###### HARD STATUS (WINDOW/TAB TITLE) ######
+
+# Adds some termcap to the terminal.
+# (xterm-256color doesn't originally support hard status.)
+# hs - terminal has a status line
+# ts - String of commands to move the terminal cursor into the status line
+# fs - String of commands to make the cursor exit the status line
+# ds - String of commands to disable the display of the status line
 termcapinfo xterm* 'hs:ts=\E]0;:fs=\007:ds=\E]0;\007'
+
+# Contents of the hardstatus line.
+# %S -
+# %h - the stored hardstatus of the current window.
+hardstatus string "[%S] %h"
+
+###### OTHER SETTINGS ######
+
+# Enables support for the "alternate screen" terminal capability, avoiding
+# full-screen programs like vim remaining in the scrollback buffer after closed
+altscreen on
+# Automatically detach the session on SIGHUP
+autodetach on
+# Force screen to process ^S/^Q, avoiding them freezing the screen.
+defflow on
+# Keep scrollback n lines
+defscrollback 10000
+# Always change window size to current display size
+fit
+# Don't display the copyright page
+startup_message off
+# Sets the $TERM variable for new screen
+term screen-256color
+# No tab-completion flash in heading bar
 vbell off
-
-################
-#
-# default windows
-#
-
-# screen -t local 0
-# screen -t mail 1 mutt
-# screen -t 40 2 rlogin server
-
-# caption always "%3n %t%? @%u%?%? [%h]%?%=%c"
-## alternative caption, gives window list, LOGNAME and current date:
-# caption always "%{wk}%?%-Lw%?%{bw}%n*%f %t%?(%u)%?%{wk}%?%+Lw %=%{mk}@%H %{yk}%D %{ck}%M%{wk} %{ck}%d %{gk}%c"
-# hardstatus alwaysignore
-# hardstatus alwayslastline "%Lw"
-
-# Red Hat's normal status line
-#hardstatus string "[screen %n%?: %t%?] %h"
-
