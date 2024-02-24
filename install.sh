@@ -9,6 +9,10 @@ profile.sh        .profile
 screenrc          .screenrc
 toprc             .toprc
 
+fish/completions  .config/fish/completions
+fish/conf.d       .config/fish/conf.d
+fish/functions    .config/fish/functions
+
 maximum-awesome/tmux.conf     .tmux.conf
 maximum-awesome/vim           .vim
 maximum-awesome/vimrc         .vimrc
@@ -16,16 +20,12 @@ maximum-awesome/vimrc.bundles .vimrc.bundles
 '
 
 touches='
+.bashrc.local
+.profile.local
 .viminfo
 .vimrc.local
 .vimrc.bundles.local
 '
-
-locals='
-.profile.local
-.bashrc.local
-'
-
 
 # Change current working dir.
 
@@ -39,31 +39,36 @@ execcmd_before working dir related to '$HOME'
 echo $rel
 
 
-# To run or not.
+# Dryrun?
 
 [ "$1" = go ] && export DRYRUN=0 || export DRYRUN=1
 
 
 # Make symlinks.
 
-echo "$links" | while read from to; do
-  [ -z "$from" ] || execcmd ln -sfn "$rel/$from" "$HOME/$to"
+execcmd mkdir -p ~/.config/fish
+
+echo "$links" | while read src dest; do
+  if [ -n "$src" ]; then
+    # Destination might be in a subdir. The symlink should point to the parent
+    # dir (or grandparent dir) then to the $rel dir.
+    parentrel=`echo $dest | awk '{ sub("[^/]+/?$", ""); gsub("[^/]+/", "../"); print }'`
+
+    # If destination is an existing dir, rename it.
+    if [ -d "$HOME/$dest" -a ! -L "$HOME/$dest" ]; then
+      execcmd mv "$HOME/$dest" "$HOME/$dest.old"
+    fi
+
+    # Finally create the symlink.
+    execcmd ln -sfn "$parentrel$rel/$src" "$HOME/$dest"
+  fi
 done
 
 
 # Make empty files.
 
-echo "$touches" | while read tarch; do
-  [ -z "$tarch" -o -e "$HOME/$tarch" ] || execcmd touch "$HOME/$tarch"
-done
-
-echo "$locals" | while read locl; do
-  [ -z "$locl" -o -e "$HOME/$locl" ] || {
-    echo '### direct2cache head START ###'
-    echo '#### direct2cache head END ####'
-    echo '### direct2cache tail START ###'
-    echo '#### direct2cache tail END ####'
-  } | execcmd tee "$HOME/$locl"
+echo "$touches" | while read f; do
+  [ -z "$f" -o -e "$HOME/$f" ] || execcmd touch "$HOME/$f"
 done
 
 
@@ -79,9 +84,10 @@ fi
 
 
 # Install vundles specified in maximum-awesome.
+
 [ "$DRYRUN" = 1 ] && N=-n || N=
-export DRYRUN=0
-execcmdsh "cd maximum-awesome && rake $N install:vundle"
+DRYRUN=0 execcmdsh "cd maximum-awesome && rake $N install:vundle"
+
 
 # And we are done.
 
@@ -95,4 +101,3 @@ else
   echo "If everything is OK, run '$0 go' to make changes."
 
 fi
-
