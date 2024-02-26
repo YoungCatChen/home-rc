@@ -1,5 +1,4 @@
 [ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=no
-[ -z "$INCLUDE_NAME" ] && INCLUDE_NAME=bashrc
 
 export INCLUDE_FILES='         \
   $CODEROOT/profile.d/*.sh     \

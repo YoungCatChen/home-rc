@@ -2,6 +2,8 @@
 [ -z "$PS1" ] && return
 
 # Some variables
+. ./.home-rc.settings
+
 [ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=yes
 
 [ -z "$INCLUDE_FILES" ] && export INCLUDE_FILES=' \
@@ -11,16 +13,9 @@
 '
 
 source_all() {
-  # Expand INCLUDE_FILES
-  local FILES="$HOME/.home-rc.settings"
   local F
   for F in `eval "echo $INCLUDE_FILES"`; do
-    [ -r "$F" ] && FILES="$FILES $F"
-  done
-
-  # Source all
-  for F in $FILES; do
-    . "$F"
+    [ -r "$F" ] && . "$F"
   done
 }
 

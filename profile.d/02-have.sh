@@ -1,5 +1,5 @@
 nullit()     { "$@"; } >/dev/null 2>&1
-have()       { nullit command -v "$1"; }
+have()       { nullit type "$1"; }
 havebin()    { nullit findbin "$1";    }
 havesysbin() { nullit findsysbin "$1"; }
 
