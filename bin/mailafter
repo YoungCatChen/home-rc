@@ -30,7 +30,7 @@ if [ -f "$to_addr_file" -a -r "$to_addr_file" ]; then
 fi
 
 #################### Determine how to send mail ####################
-# if [ -n "$SENDCMD" ]; then
+# if [ "$SENDCMD" ]; then
 #   true
 # elif [ -f "$send_exec" ]; then
 #   SENDCMD='. "$send_exec"'

@@ -12,7 +12,12 @@ alias   cd......='cd ../../../../..'
 alias  cd.......='cd ../../../../../..'
 alias cd........='cd ../../../../../../..'
 
-alias        -='cd -'
+if [ $BASH ]; then
+  alias --   -='cd -'
+else
+  alias      -='cd -'
+fi
+
 alias       ..='cd ..'
 alias      ...='cd ../..'
 alias     ....='cd ../../..'

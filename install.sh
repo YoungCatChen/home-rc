@@ -49,7 +49,7 @@ echo $rel
 execcmd mkdir -p ~/.config/fish
 
 echo "$links" | while read src dest; do
-  if [ -n "$src" ]; then
+  if [ "$src" ]; then
     # Destination might be in a subdir. The symlink should point to the parent
     # dir (or grandparent dir) then to the $rel dir.
     parentrel=`echo $dest | awk '{ sub("[^/]+/?$", ""); gsub("[^/]+/", "../"); print }'`

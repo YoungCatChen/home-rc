@@ -4,7 +4,7 @@ COL="$1"
 shift
 
 SKIP="$(($1 + 0))"
-if [ -n "$1" ]; then  # $1 non-empty
+if [ "$1" ]; then  # $1 non-empty
 	if [ -z "${1//[0-9]/}" ]; then # $1 all digits
 		shift
 	fi
