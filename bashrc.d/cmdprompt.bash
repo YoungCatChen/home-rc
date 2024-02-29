@@ -15,14 +15,9 @@ attach_ps1() {
   unset a_p_USER
 }
 
-M="$multiline_prompt"
-[ "$M" = '' ] && is_cygwin && M=yes
-
-if [ "$M" = yes ]; then
+if [ "$multiline_prompt" = yes ]; then
   PS1='\n\[\e[1;3${?/[1-9]*/1}m\]$? \[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w\n\[\e[1;37m\]\$ \[\e[m\]'
 else
   PS1='\[\e[1;3${?/[1-9]*/1}m\]$? \[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w\[\e[m\e[32m\] \[\e[1;37m\]\$ \[\e[m\]'
 fi
-
-unset M
 
