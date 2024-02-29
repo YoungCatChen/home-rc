@@ -1,1 +1,1 @@
-../../../profile.d/use-lesspipe.sh
+../../../profile.d/10-only-login/use-lesspipe.sh

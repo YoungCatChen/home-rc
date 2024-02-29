@@ -10,6 +10,4 @@ repeat() {
   while sleep "$repeat_sleep"; do
     execcmdsh "$@"
   done
-
-  unset repeat_sleep
 }

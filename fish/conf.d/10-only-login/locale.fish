@@ -1,1 +1,1 @@
-../../../profile.d/locale.sh
+../../../profile.d/10-only-login/locale.sh

@@ -1,6 +1,5 @@
 attach_ps1() {
-  a_p_USER=
-  [ "$WHOAMI" = "$MYLOGNAME" ] || a_p_USER="$WHOAMI@"
+  a_p_USER="$USER@"
 
   case "$TERM" in
     xterm*)
