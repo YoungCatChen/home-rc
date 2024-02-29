@@ -2,11 +2,11 @@
 [ -z "$PS1" ] && return
 
 # Some variables
-. ./.home-rc.settings
+. "$HOME/.home-rc.settings"
 
 [ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=yes
 
-[ -z "$INCLUDE_FILES" ] && export INCLUDE_FILES=' \
+[ -z "$INCLUDE_FILES" ] && INCLUDE_FILES=' \
   $CODEROOT/profile.d/*.sh   \
   $HOME/.*env/profile.d/*.sh \
   $HOME/.profile.local       \

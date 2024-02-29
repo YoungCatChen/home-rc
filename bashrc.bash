@@ -1,6 +1,6 @@
 [ -z "$LOGIN_SHELL" ] && LOGIN_SHELL=no
 
-export INCLUDE_FILES='         \
+INCLUDE_FILES='         \
   $CODEROOT/profile.d/*.sh     \
   $HOME/.*env/profile.d/*.sh   \
   $CODEROOT/bashrc.d/*.bash    \
