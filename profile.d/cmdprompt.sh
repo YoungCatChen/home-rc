@@ -28,8 +28,8 @@
 setup_prompt_temps() {
   local esc wrapBegin wrapEnd
 
-  # Bash requires control sequences to be wrapped between \[ and \].
-  [ "$SHELL_TYPE" = bash ] && wrapBegin='\[' && wrapEnd='\]'
+  # Most shells require control sequences to be wrapped between \[ and \].
+  [ "$SHELL_TYPE" != sh ] && wrapBegin='\[' && wrapEnd='\]'
 
   # Posix shell (e.g. Dash) doesn't automatically unescape \033 \007 etc.
   # Need to use `echo` to unescape them.
@@ -62,19 +62,17 @@ cleanup_prompt_temps() {
 set_prompt() {
   local exitCode=
   [ "$SHELL_TYPE" = sh ] && exitCode="$darkgray"'\$?=$? '
-
   local host='\h'
   [ "$SHELL_TYPE" = sh ] && host="`hostname | cut -d. -f1`"
   local dir='\w'
   [ "$SHELL_TYPE" = sh ] && dir='$PWD'
-
   local dollar='$'
   [ "$USER" = root ] && dollar='#'
 
   PS1="$exitCode$red$USER$white@$yellow$host $blue$dir $brwhite$dollar $nocolor"
 
   local titleUser
-  [ "`logname`" != "$USER" ] && titleUser="$USER@"
+  have logname && [ "`logname`" != "$USER" ] && titleUser="$USER@"
   local titleHost
   [ "$SSH_TTY" ] && titleHost="$host"
   local titleUserHost

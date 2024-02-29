@@ -1,4 +1,4 @@
-if have '[['; then
+if have '[[' && [[ MaGiC = MaGi* ]]; then
 
   startswith() {
     [[ "$1" = "$2"* ]]
