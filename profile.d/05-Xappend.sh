@@ -47,7 +47,7 @@ pathprepend() {
 }
 
 
-if [ -z "$BASH" ]; then
+if [ "$SHELL_TYPE" != bash ]; then
 
   varappend() {
     xa_TMP="$( echo "$2$1$2" | sed \

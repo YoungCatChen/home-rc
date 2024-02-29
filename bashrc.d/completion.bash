@@ -1,7 +1,6 @@
 # Enable programmable completion features
 
 [ "$bash_completion" == no ] && return
-[ "$bash_completion" != yes ] && is_cygwin && return
 
 get_bash_comp() {
   [ -f "$1" ] && . '$1'

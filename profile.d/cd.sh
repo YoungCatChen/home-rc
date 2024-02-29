@@ -12,7 +12,7 @@ alias   cd......='cd ../../../../..'
 alias  cd.......='cd ../../../../../..'
 alias cd........='cd ../../../../../../..'
 
-if [ $BASH ]; then
+if [ "$SHELL_TYPE" = bash ]; then
   alias --   -='cd -'
 else
   alias      -='cd -'

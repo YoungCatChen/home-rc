@@ -1,4 +1,18 @@
-if [ -z "$BASH" ]; then
+if have '[['; then
+
+  startswith() {
+    [[ "$1" = "$2"* ]]
+  }
+
+  endswith() {
+    [[ "$1" = *"$2" ]]
+  }
+
+  string_contains() {
+    [[ "$1" = *"$2"* ]]
+  }
+
+else
 
   startswith() {
     case "$1" in
@@ -19,20 +33,6 @@ if [ -z "$BASH" ]; then
       *"$2"*) return 0;;
     esac
     return 1
-  }
-
-else
-
-  startswith() {
-    [[ "$1" = "$2"* ]]
-  }
-
-  endswith() {
-    [[ "$1" = *"$2" ]]
-  }
-
-  string_contains() {
-    [[ "$1" = *"$2"* ]]
   }
 
 fi

@@ -1,6 +1,4 @@
-exe="`readlink "/proc/$$/exe"`"
-
-if endswith "$exe" /busybox; then
+if [ "$SHELL_TYPE" = busybox ]; then
   export PS1='\[\e[m\e[32m\]\u@\h \[\e[m\e[33m\]\w \[\e[1;37m\]\$ \[\e[m\]'
 else
   dollar='$ '
@@ -8,5 +6,3 @@ else
   export PS1='\$?=$? '"$USER"@"`hostname`"' $PWD '"$dollar"
   unset dollar
 fi
-
-unset exe
