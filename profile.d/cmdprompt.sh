@@ -23,11 +23,18 @@
 #   Magenta       0;35            1;35
 #   Cyan          0;36            1;36
 #   White    0;37 (light-gray)    1;37
+#
+# Considerations:
+#
+#   We need to support the Bash, Dash and Busybox. Their features in
+#   consideration:
+#              \w  \h  $USER  ${FOO/a/b}  need-wrap  multi-line
+#     Dash               y                               y
+#     Bash      y   y    y        y           y          y
+#     Busybox   y   y                         y
 
 # Defines named color variables and the `title{Begin,End}` wraps.
 setup_prompt_temps() {
-  local esc wrapBegin wrapEnd
-
   # Most shells require control sequences to be wrapped between \[ and \].
   [ "$SHELL_TYPE" != sh ] && wrapBegin='\[' && wrapEnd='\]'
 
@@ -38,14 +45,13 @@ setup_prompt_temps() {
     esc="`echo '\033'`"
     titleEnd="`echo '\007'`$wrapEnd"
   else
-    esc='\033'
+    esc='\e'
     titleEnd="\007$wrapEnd"
   fi
   titleBegin="$wrapBegin$esc]0;"
 
   # Define the colors. They are ordered by the appearance on the target prompt.
   darkgray="$wrapBegin$esc[1;30m$wrapEnd"
-  brred="$wrapBegin$esc[1;31m$wrapEnd"
   red="$wrapBegin$esc[0;31m$wrapEnd"
   white="$wrapBegin$esc[0;37m$wrapEnd"
   yellow="$wrapBegin$esc[0;33m$wrapEnd"
@@ -54,38 +60,66 @@ setup_prompt_temps() {
   nocolor="$wrapBegin$esc[0m$wrapEnd"
 }
 
+# Cleans up the temp variables and the helper functions.
 cleanup_prompt_temps() {
   unset -f setup_prompt_temps cleanup_prompt_temps set_prompt
-  unset darkgray brred red white yellow blue brwhite nocolor titleBegin titleEnd
+  unset esc wrapBegin wrapEnd titleBegin titleEnd
+  unset darkgray red white yellow blue brwhite nocolor
+  unset -f exit_code_sh exit_code_bash exit_code_busybox
+  unset -f newline_sh newline_bash newline_busybox
 }
 
+# Actually sets the prompt.
 set_prompt() {
-  local exitCode=
-  [ "$SHELL_TYPE" = sh ] && exitCode="$darkgray"'\$?=$? '
+  local exitCode
+  exit_code_$SHELL_TYPE
   local host='\h'
   [ "$SHELL_TYPE" = sh ] && host="`hostname | cut -d. -f1`"
   local dir='\w'
   [ "$SHELL_TYPE" = sh ] && dir='$PWD'
   local dollar='$'
   [ "$USER" = root ] && dollar='#'
+  local newline=' '
+  [ "$multiline_prompt" = yes ] && newline_$SHELL_TYPE
 
-  PS1="$exitCode$red$USER$white@$yellow$host $blue$dir $brwhite$dollar $nocolor"
+  PS1="$exitCode$red$USER$white@$yellow$host $blue$dir$newline$brwhite$dollar $nocolor"
 
   local titleUser
-  have logname && [ "`logname`" != "$USER" ] && titleUser="$USER@"
+  have logname && [ "`logname`" != "$USER" ] && titleUser="$USER"
   local titleHost
   [ "$SSH_TTY" ] && titleHost="$host"
   local titleUserHost
-  [ "$titleUser$titleHost" ] && titleUserHost="[$titleUser$titleHost] "
+  [ "$titleUser$titleHost" ] && titleUserHost="[$titleUser@$titleHost] "
   local titleDir='\W'
   [ "$SHELL_TYPE" = sh ] && titleDir='${PWD##*/}'
 
   PS1="$PS1$titleBegin$titleUserHost$titleDir$titleEnd"
 }
 
-# Actually set the prompt. Note that bash's setup is separate in `bashrc.d`.
-if [ "$SHELL_TYPE" != bash ]; then
-  setup_prompt_temps
-  set_prompt
-  cleanup_prompt_temps
-fi
+# Defines `$exitCode` to show the exit code with color, if supported.
+exit_code_sh() {
+  exitCode="$darkgray"'\$?=$? '
+}
+exit_code_bash() {
+  exitCode="$wrapBegin$esc"'[1;3${?/[1-9]*/7}m'"$wrapEnd"'$\[\]?=$? '
+}
+exit_code_busybox() {
+  exitCode=
+}
+
+# Defines `$newline` to insert a new line (assuming $multiline_prompt = yes).
+newline_sh() {
+  newline='
+'
+}
+newline_bash() {
+  newline='\n'
+}
+newline_busybox() {
+  newline=' '
+}
+
+# Actually set the prompt.
+setup_prompt_temps
+set_prompt
+cleanup_prompt_temps
