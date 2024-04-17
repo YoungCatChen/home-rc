@@ -6,7 +6,7 @@
 
 [ -z "$INCLUDE_FILES" ] && INCLUDE_FILES=' \
   $CODEROOT/profile.d/*.sh   \
-  $HOME/.*env/profile.d/*.sh \
+  $HOME/.*.env/profile.d/*.sh \
   $HOME/.profile.local       \
 '
 

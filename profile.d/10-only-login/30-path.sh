@@ -10,7 +10,7 @@ pathprepend /usr/local/bin
 pathprepend /opt/homebrew/bin
 pathprepend "$CODEROOT/bin"
 
-for BIN_PATH in "$HOME"/.*env/bin; do
+for BIN_PATH in "$HOME"/.*.env/bin; do
   [ -d "$BIN_PATH" ] && pathprepend "$BIN_PATH"
 done
 unset BIN_PATH
