@@ -1,1 +1,0 @@
-../fish-history-merge/functions/up-or-search.fish
