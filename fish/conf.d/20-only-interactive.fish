@@ -3,6 +3,6 @@ if status is-interactive
     source $f
   end
 
-  set --append fish_complete_path $HOME/.*.env/fish/completions
-  set --append fish_function_path $HOME/.*.env/fish/functions
+  set --append fish_complete_path $CODEROOT/fish/*/completions $HOME/.*.env/fish/completions
+  set --append fish_function_path $CODEROOT/fish/*/functions $HOME/.*.env/fish/functions
 end
