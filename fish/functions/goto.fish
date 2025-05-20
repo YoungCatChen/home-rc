@@ -1,0 +1,1 @@
+../goto/functions/goto.fish
