@@ -3,7 +3,7 @@
 [ "$bash_completion" == no ] && return
 
 get_bash_comp() {
-  [ -f "$1" ] && . '$1'
+  [ -f "$1" ] && . "$1"
 }
 
 get_bash_comp /etc/bash_completion

@@ -85,7 +85,11 @@ set_prompt() {
   PS1="$exitCode$red$USER$white@$yellow$host $blue$dir$newline$brwhite$dollar $nocolor"
 
   local titleUser
-  have logname && [ "`logname`" != "$USER" ] && titleUser="$USER"
+  if [ -n "$LOGNAME" ]; then
+    [ "$LOGNAME" != "$USER" ] && titleUser="$USER"
+  elif have logname; then
+    [ "`logname`" != "$USER" ] && titleUser="$USER"
+  fi
   local titleHost
   [ "$SSH_TTY" ] && titleHost="$host"
   local titleUserHost
