@@ -8,6 +8,7 @@ fish_add_path -g --path \
   ~/.local/bin \
   (path resolve ~/.*.env/bin) \
   $CODEROOT/bin \
+  ~/go/bin \
   /opt/homebrew/bin \
   /opt/homebrew/sbin \
   /usr/local/bin \

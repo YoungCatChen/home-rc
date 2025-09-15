@@ -9,6 +9,7 @@ pathprepend /usr/bin
 pathprepend /usr/local/bin
 pathprepend /opt/homebrew/sbin
 pathprepend /opt/homebrew/bin
+pathprepend "$HOME/go/bin"
 pathprepend "$CODEROOT/bin"
 
 for BIN_PATH in "$HOME"/.*.env/bin; do
