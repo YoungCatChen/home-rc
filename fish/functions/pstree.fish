@@ -5,7 +5,7 @@ function helpdoc_contains
   string match -q '* '"$argv[1]"' *' $helpdoc
 end
 
-set -g helpdoc (pstree --help 2>&1)
+set -g helpdoc (command pstree --help 2>&1)
 
 set -l hide       # hide threads, show only processes
 set -l highlight  # highlight current process and its ancestors
